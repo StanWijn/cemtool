@@ -6,14 +6,14 @@
 #'
 
 
-icmt <-function(){
+cemtool <-function(){ 
 
-cat("Welcome to 'icmt': the interactive cost-effectiveness model tool build by Radboudumc.
+cat("Welcome to 'cemtool': the interactive cost-effectiveness model tool build by Radboudumc.
 S.R.W. Wijn (version 0.2)
 
 This tool allows you to build a simple Markov model in R.
 
-For more background information, please visit: https://github.com/StanWijn/icmt
+For more background information, please visit: https://github.com/StanWijn/cemtool
 If you find any bugs or errors, please report them to Stan.Wijn@radboudumc.nl")
 
 if(interactive()) readkey()
