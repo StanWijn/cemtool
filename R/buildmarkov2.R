@@ -2,9 +2,9 @@
 ########      S.R.W. Wijn MSc, 2018     #############
 #################################################
 #Markov model in R: Deterministic
-#' @export
 
-ceomrun <-function(){
+
+cemrun <-function(){
   input <- modelinput2
 
 
@@ -90,12 +90,16 @@ ceomrun <-function(){
   m.M_treatment <<- m.M_treatment
   table_output <<- table_output
   cat("--------------------------------------------", "\n")
-  cat("Finished", "\n")
-  cat("You can find the result table under table_output in your Global Enviroment.", "\n")
+  cat("You can find the result table under table_output in your Global Enviroment. 
+      m.M and m.M_treatment show the Markov trace
+      m.P and m.P_treatment show the transition probability matrix", "\n",
+      
+      "To rerun the analysis with your own alterations type: cemrun() and press enter in the console", " \n")
   cat("--------------------------------------------", "\n")
   cat("Result table:", "\n")
   return(table_output)
   cat("--------------------------------------------", "\n")
+  cat("Finished", "\n")
   }
 
 

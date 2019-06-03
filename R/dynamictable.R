@@ -1,5 +1,5 @@
 # Dynamic table to alter treatment effect
-#' @import rhandsontable shiny
+#' @import rhandsontable shiny shinydashboard
 
 
 editTable <- function(DF, outdir=getwd(), outfilename="table"){
@@ -21,47 +21,60 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     DFutil  <- DF[,22:27]
   }
 
-  ui <- shinyUI(fluidPage(
-
-    titlePanel("Markov model input: Edit and save the model input table"),
-    sidebarLayout(
-      sidebarPanel(width = 2,
-        helpText("Double-click on a cell to edit"),
-
-
-        br(),
-
-        wellPanel(
-          h3("Save table"),
-          div(class='row',
-              div(class="col-sm-6",
-                  actionButton("save", "Save"))
-
-          )
-        )
-
-      ),
-
-      mainPanel(
-        wellPanel(
-          uiOutput("message", inline=TRUE)
-        ),
-
-
-        br(), br(),
-
+  title <-tags$div(h2("Step 2: Markov model input"))
+  header <- dashboardHeader(tags$li(class = "dropdown",
+                                    tags$style(".main-header {max-height: 100px}"),
+                                    tags$style(".main-header .logo {height: 100px}")),
+                            title = title, 
+                            
+                            titleWidth = '100%')
+  
+  sidebar <- dashboardSidebar(disable = TRUE)
+  
+  body <- dashboardBody(
+    tags$head(tags$style(HTML('
+        .skin-blue .main-header .logo {
+                            background-color: #3c8dbc;
+                            }
+                            .skin-blue .main-header .logo:hover {
+                            background-color: #3c8dbc;
+                            }
+                            '))),
+    tags$style(HTML("hr {border-top: 1px solid #000000;}")),
+    tags$hr(),
+    wellPanel(
+      uiOutput("message", inline=TRUE),
+      div(class='row',
+          div(class="col-sm-6",
+              actionButton("save", "Save")))
+    ),
+    tags$hr(),
+    
+        fluidRow(
+          column(5, align = "left",
+     
+        helpText("Transition probabilities for both strategies"),
         rHandsontableOutput("hot"),
         br(),
+        helpText("Costs of the healthstates for both strategies"),
         rHandsontableOutput("cost"),
         br(),
+        helpText("Effects (utilities) for both strategies"),
         rHandsontableOutput("effect"),
         br(),
-
-       plotOutput("plotmodel")
+        
+        sliderInput("d.rc", label = h5("What is the discount rate for costs? (for the Netherlands: 0.04, the UK: 0.03)"), 
+                    min = 0.01, max = 0.10, value = 0.04),
+        sliderInput("d.re", label = h5("What is the discount rate for effects/utilities? (for the Netherlands: 0.015, the UK: 0.03"), 
+                    min = 0.01, max = 0.10, value = 0.015)
+        ),
+        
+        column(7,
+        plotOutput("plotmodel"))
 
       )
     )
-  ))
+
 
   server <- shinyServer(function(input, output, session) {
     session$onSessionEnded(function() {
@@ -88,7 +101,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     output$hot <- renderRHandsontable({
       DFtrans <- values[["DFtrans"]]
       if (!is.null(DFtrans))
-        rhandsontable(DFtrans, useTypes = as.logical(F))#, stretchH = "all")
+        rhandsontable(DFtrans, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all")
     })
 
     # --- cost input
@@ -108,7 +121,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     output$cost <- renderRHandsontable({
       DFcost <- values[["DFcost"]]
       if (!is.null(DFcost))
-        rhandsontable(DFcost, useTypes = as.numeric(T))#, stretchH = "all")
+        rhandsontable(DFcost, rowHeaderWidth = 150, useTypes = as.numeric(T), stretchH = "all")
     })
 
     # --- effect input
@@ -128,19 +141,16 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     output$effect <- renderRHandsontable({
       DFutil <- values[["DFutil"]]
       if (!is.null(DFutil))
-        rhandsontable(DFutil, useTypes = as.logical(F))#, stretchH = "all")
+        rhandsontable(DFutil, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all")
     })
-    #output$cost <- renderRHandsontable({
-    #  DF <- values[["DFcost"]]
-    #  if (!is.null(DF))
-    #    rhandsontable(DF, useTypes = as.logical(FALSE), stretchH = "all")
-    #})
-    #output$effect <- renderRHandsontable({
-    #  DF <- values[["DFutil"]]
-    #  if (!is.null(DF))
-    #    rhandsontable(DF, useTypes = as.logical(FALSE), stretchH = "all")
-    #})
-
+    
+    # --- discount rates
+    observeEvent(input$save,{
+      d.rc <<- as.numeric(input$d.rc)
+      d.re <<- as.numeric(input$d.re)
+    }) 
+    
+    
     ## Save
     observeEvent(input$save, {
       #fileType <- isolate(input$fileType)
@@ -153,17 +163,8 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     }
     )
 
-
-   # observeEvent(input$addcolumn, {
-   #   DF <- isolate(values[["DF"]])
-   #   values[["previous"]] <- DF
-   #   newcolumn <- eval(parse(text=sprintf('%s(nrow(DF))', isolate(input$newcolumntype))))
-   #   values[["DF"]] <- setNames(cbind(DF, newcolumn, stringsAsFactors=FALSE), c(names(DF), isolate(input$newcolumnname)))
-   # })
-
     output$plotmodel <- renderPlot({
-      second(HS)
-    })
+        second(HS)}, width = 900, height = 600)
 
     ## Message
     output$message <- renderUI({
@@ -179,6 +180,6 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
   })
 
   ## run app
-  runApp(list(ui=ui, server=server))
+  runApp(shinyApp(ui = dashboardPage(header, sidebar, body), server))
   return(invisible())
 }
