@@ -1,6 +1,0 @@
-structure(list(p.HD = c(0.0038, 0.0038), p.HS1 = c(0.12, 0.1), 
-    p.S1D = c(0.1, 0.1), p.HS2 = c(0.15, 0.12), p.S1S2 = c(0.3, 
-    0.3), p.S2D = c(0.2038, 0.2038), c.H = c(5000, 8000), c.S1 = c(8000, 
-    8000), c.S2 = c(10000, 10000), c.D = c(0, 0), u.H = c(0.7, 
-    0.7), u.S1 = c(0.65, 0.65), u.S2 = c(0.6, 0.6), u.D = c(0, 
-    0)), row.names = c("No adj treatment", "Adj treatment"), class = "data.frame")

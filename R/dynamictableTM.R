@@ -1,5 +1,5 @@
 # Dynamic table to alter treatment effect
-#' @import rhandsontable shiny
+#' @import rhandsontable shiny 
 
 
 editmatrix <- function(outdir=getwd()){
@@ -8,46 +8,56 @@ editmatrix <- function(outdir=getwd()){
     DFcost <- data.frame(m.P_treatment)
 
 
-  ui <- shinyUI(fluidPage(
-
-    titlePanel("Transition probability matrix: Edit and save the model input table"),
-    sidebarLayout(
-      sidebarPanel(width = 2,
-                   helpText("Double-click on a cell to edit"),
-
-
-                   br(),
-
-                   wellPanel(
-                     h3("Save table"),
-                     div(class='row',
-                         div(class="col-sm-6",
-                             actionButton("save", "Save"))
-
-                     )
-                   )
-
+    title <- tags$div(h2("Step 3: Transition probability matrix"))
+    
+    header <- dashboardHeader(tags$li(class = "dropdown",
+                                      tags$style(".main-header {max-height: 100px}"),
+                                      tags$style(".main-header .logo {height: 100px}")),
+                              title = title, 
+                              titleWidth = '100%')
+    
+    sidebar <- dashboardSidebar(disable = TRUE)
+    
+    body <- dashboardBody(
+      tags$head(tags$style(HTML('
+        .skin-blue .main-header .logo {
+                            background-color: #3c8dbc;
+                            }
+                            .skin-blue .main-header .logo:hover {
+                            background-color: #3c8dbc;
+                            }
+                            '))),
+      tags$style(HTML("hr {border-top: 1px solid #000000;}")),
+      tags$hr(),
+      wellPanel(
+        uiOutput("message", inline=TRUE),
+        div(class='row',
+            div(class="col-sm-6",
+                actionButton("save", "Save")))
       ),
-
-      mainPanel(
-        wellPanel(
-          uiOutput("message", inline=TRUE)
-        ),
-
+      tags$hr(),
+      
+      fluidRow(
+         column(5, align = "left", 
         helpText("Make sure that the sum of each row is equal to 1!"),
+        br(),
+        helpText("Rows indicate the originating healthstate, colums indicate targeted healthstate.
+                 Example: first row, second column is the probability to move from the first healthstate to the second."),
         br(),
        helpText("Transitionmatrix of usual care"),
         rHandsontableOutput("hot"),
         br(),
        helpText("Transitionmatrix of treatment"),
         rHandsontableOutput("cost"),
-        br(),
-
+       
+       br()
+       ),
+       column(7,
         plotOutput("plotmodel")
-
+       )
       )
     )
-  ))
+  
 
   server <- shinyServer(function(input, output, session) {
     session$onSessionEnded(function() {
@@ -97,8 +107,7 @@ editmatrix <- function(outdir=getwd()){
         rhandsontable(DFcost, useTypes = as.logical(TRUE))
     })
 
-
-
+  
     ## Save
     observeEvent(input$save, {
       #fileType <- isolate(input$fileType)
@@ -110,10 +119,9 @@ editmatrix <- function(outdir=getwd()){
     }
     )
 
-
     output$plotmodel <- renderPlot({
       second(HS)
-    })
+    }, width = 900, height = 600)
 
     ##-- Message
     output$message <- renderUI({
@@ -129,6 +137,6 @@ editmatrix <- function(outdir=getwd()){
   })
 
   ## run app
-  runApp(list(ui=ui, server=server))
+  runApp(shinyApp(ui= dashboardPage(header, sidebar, body), server=server))
   return(invisible())
 }
