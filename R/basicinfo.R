@@ -73,8 +73,19 @@ basic <- function(){
                     helpText("We only support the comparison of two strategies: usual care vs an intervention"),
                     textInput("usualcare", label = h5("What is the name of your usual care strategy?: "), value = ""),
                     textInput("intervention", label = h5("What is the name of your intervention strategy?: "), value = ""),
-                    br()
-    ) ))
+                    br())),
+    
+    fluidRow(column(4,
+      tags$hr(),
+     wellPanel(
+     #  uiOutput("message", inline=TRUE),
+       div(class='row',
+           div(class="col-sm-6",
+               actionButton("save2", "Save and/or update plot")))
+     ),
+      tags$hr())
+    )
+    )
   
   
   
@@ -86,12 +97,12 @@ basic <- function(){
     })
     
     # step 1: health state
-    observeEvent(input$save,{
+    observeEvent(input$save | input$save2,{
       HS <<- as.numeric(input$healthstates)
     }) 
     
     # step 2: names of health states:
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       HS1 <<- as.character(input$HS1) 
       HS2 <<- as.character(input$HS2) 
       HS3 <<- as.character(input$HS3) 
@@ -100,17 +111,17 @@ basic <- function(){
       dead <<- as.character(input$dead)}) 
     
     # step 3: other variables:
-    observeEvent(input$save,{
+    observeEvent(input$save | input$save2,{
       n.t <<- as.integer(input$cycles)})
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       control <<- as.character(input$usualcare)}) 
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       intervention <<- as.character(input$intervention)}) 
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       Strategies <<- c(control, intervention)})
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       n.s <<- HS})
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       if(HS==3){
         v.n <<- c(HS1, HS2, dead)
       } else if(HS==4){
@@ -125,7 +136,7 @@ basic <- function(){
     
     ## plot:
     output$plotmodel <- renderPlot({
-      if(input$save == 0){helpText("Press save to view the model")
+     if(input$save ==0 & input$save2 == 0){second(input$healthstates)
       }else{
         second(HS)  
       }
@@ -136,7 +147,7 @@ basic <- function(){
     
     ##-- Message
     output$message <- renderUI({
-      if(input$save==0){
+      if(input$save==0 & input$save2 == 0){
         helpText(sprintf("When you are done editing the basic information, press Save and close this window."))
       }else{
         helpText(sprintf("Input saved. If you want to update the plot, press Save again.

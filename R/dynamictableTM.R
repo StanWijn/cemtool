@@ -56,6 +56,17 @@ editmatrix <- function(outdir=getwd()){
        column(7,
         plotOutput("plotmodel")
        )
+      ),
+      
+      fluidRow(column(4,
+                      tags$hr(),
+                      wellPanel(
+                        #  uiOutput("message", inline=TRUE),
+                        div(class='row',
+                            div(class="col-sm-6",
+                                actionButton("save2", "Save and/or update plot")))
+                      ),
+                      tags$hr())
       )
     )
   
@@ -85,7 +96,7 @@ editmatrix <- function(outdir=getwd()){
     output$hot <- renderRHandsontable({
       DFtrans <- values[["DFtrans"]]
       if (!is.null(DFtrans))
-        rhandsontable(DFtrans, useTypes = as.logical(TRUE))
+        rhandsontable(DFtrans, useTypes = as.logical(F), stretchH = "all")
     })
 
     # --- cost input
@@ -105,12 +116,12 @@ editmatrix <- function(outdir=getwd()){
     output$cost <- renderRHandsontable({
       DFcost <- values[["DFcost"]]
       if (!is.null(DFcost))
-        rhandsontable(DFcost, useTypes = as.logical(TRUE))
+        rhandsontable(DFcost, useTypes = as.logical(F), stretchH = "all")
     })
 
   
     ## Save
-    observeEvent(input$save, {
+    observeEvent(input$save | input$save2, {
       #fileType <- isolate(input$fileType)
       finalDF <- isolate(values[["DFtrans"]])
       finalDF2 <- isolate(values[["DFcost"]])
@@ -126,7 +137,7 @@ editmatrix <- function(outdir=getwd()){
 
     ##-- Message
     output$message <- renderUI({
-      if(input$save==0){
+      if(input$save==0 & input$save2 == 0){
         helpText(sprintf("When you are done editing the transition matrix, press Save and close this window.
                          To undo your change, press right-mouse button and reload the table"))
       }else{
