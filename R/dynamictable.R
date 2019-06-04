@@ -69,11 +69,24 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
                     min = 0.01, max = 0.10, value = 0.015)
         ),
         
+        
         column(7,
-        plotOutput("plotmodel"))
+        plotOutput("plotmodel"))),
+        
+    fluidRow(column(4,
+                    tags$hr(),
+                    wellPanel(
+                      #  uiOutput("message", inline=TRUE),
+                      div(class='row',
+                          div(class="col-sm-6",
+                              actionButton("save2", "Save and/or update plot")))
+                    ),
+                    tags$hr())
+    )
+        
 
       )
-    )
+    
 
 
   server <- shinyServer(function(input, output, session) {
@@ -145,14 +158,14 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     })
     
     # --- discount rates
-    observeEvent(input$save,{
+    observeEvent(input$save| input$save2,{
       d.rc <<- as.numeric(input$d.rc)
       d.re <<- as.numeric(input$d.re)
     }) 
     
     
     ## Save
-    observeEvent(input$save, {
+    observeEvent(input$save| input$save2, {
       #fileType <- isolate(input$fileType)
       finalDF1 <- isolate(values[["DFtrans"]])
       finalDF2 <- isolate(values[["DFcost"]])
@@ -168,7 +181,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
 
     ## Message
     output$message <- renderUI({
-      if(input$save==0){
+      if(input$save==0 & input$save2 == 0){
         helpText(sprintf("When you are done editing the model input, press Save and close this window.
                          To undo your change, press right-mouse button and reload the table", outdir))
       }else{

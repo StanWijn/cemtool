@@ -10,3 +10,4 @@ Depends: shiny, rhandsontable, diagram, shinydashboard
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 6.1.1
+URL: https://github.com/StanWijn/cemtool
