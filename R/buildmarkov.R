@@ -97,7 +97,7 @@ if(HS==3){
                        'c.1', 'c.2', 'c.3', 'c.4', 'c.absorb','c.Tr',
                        'u.1', 'u.2', 'u.3', 'u.4', 'u.absorb')
 } else if (HS==6){
-  colnames(input) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.G', "p.H", "p.I", "p.J",
+  colnames(input) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.G', "p.H", "p.I", "p.J", 'p.V', 'p.W', "p.X", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.3', 'c.4', 'c.5', 'c.absorb','c.Tr',
                        'u.1', 'u.2', 'u.3', 'u.4', 'u.5', 'u.absorb')
 }

@@ -56,23 +56,23 @@ if(HS==3){
   m.P[v.n[1], v.n[5]] <- p.G
   m.P[v.n[1], tail(v.n, n=1)]  <- p.Z
 
-  m.P[v.n[2], v.n[2]] <- 1 -  (p.Y + p.C + p.F + p.S1S4)
+  m.P[v.n[2], v.n[2]] <- 1 -  (p.Y + p.C + p.F + p.H)
   m.P[v.n[2], v.n[3]] <- p.C
   m.P[v.n[2], v.n[4]]  <- p.E
-  m.P[v.n[2], v.n[5]] <- p.S1S4
+  m.P[v.n[2], v.n[5]] <- p.H
   m.P[v.n[2], tail(v.n, n=1)]  <- p.Y
 
-  m.P[v.n[3], v.n[3]] <- 1 - p.X - p.F - p.S2S4
+  m.P[v.n[3], v.n[3]] <- 1 - p.X - p.F - p.I
   m.P[v.n[3], v.n[4]]  <- p.F
-  m.P[v.n[3], v.n[5]] <- p.S2S4
+  m.P[v.n[3], v.n[5]] <- p.I
   m.P[v.n[3], tail(v.n, n=1)] <- p.X
 
-  m.P[v.n[4], v.n[4]] <- 1 - p.W - p.S3S4
-  m.P[v.n[4], v.n[5]] <- p.S3S4
+  m.P[v.n[4], v.n[4]] <- 1 - p.W - p.J
+  m.P[v.n[4], v.n[5]] <- p.J
   m.P[v.n[4], tail(v.n, n=1)]  <- p.W
 
-  m.P[v.n[5], v.n[5]] <- 1 - p.S4D
-  m.P[v.n[5], tail(v.n, n=1)] <- p.S4D
+  m.P[v.n[5], v.n[5]] <- 1 - p.V
+  m.P[v.n[5], tail(v.n, n=1)] <- p.V
 }
 
 return(m.P)

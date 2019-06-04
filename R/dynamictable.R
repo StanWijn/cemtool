@@ -59,7 +59,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
         helpText("Costs of the healthstates for both strategies"),
         rHandsontableOutput("cost"),
         br(),
-        helpText("Effects (utilities) for both strategies"),
+        helpText("Effects (utilities) for both strategies (ranging from 1 to 0; perfect healthy to death"),
         rHandsontableOutput("effect"),
         br(),
         
