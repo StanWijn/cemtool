@@ -53,13 +53,16 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
         fluidRow(
           column(5, align = "left",
      
-        helpText("Transition probabilities for both strategies"),
+        helpText("Transition probabilities for both strategies.
+                 Please enter in the probability to move from one state to another. (exampe: p.A is the probability to move from the first healhstate to the second 
+                 healthstate. The probability to remain in a state will automatically be calculated. In this step it is not possible to include recovery probabilities
+                 for example to return from the second healthstate to the first healthstate (reverse of p.A). This is posisble in the next step: Transition probability matrix"),
         rHandsontableOutput("hot"),
         br(),
         helpText("Costs of the healthstates for both strategies"),
         rHandsontableOutput("cost"),
         br(),
-        helpText("Effects (utilities) for both strategies (ranging from 1 to 0; perfect healthy to death"),
+        helpText("Effects (utilities) for both strategies (ranging from 1 to 0; perfect healthy to death)"),
         rHandsontableOutput("effect"),
         br(),
         

@@ -24,7 +24,10 @@ cemrun <-function(){
           main = "Markov Trace")
   legend("topright", v.n, col = 1:n.s,lty = 1:n.s, bty = "n")  # add a legend to the graph
   cat("Inspect the Markov Trace in the plot window to the right and check if is as you expected.")
-
+  plot2 <- recordPlot( matplot(0:n.t, m.M, type = 'l',
+                               ylab = "Probability of state occupancy",
+                               xlab = "Cycle",
+                               main = "Markov Trace"))
   if(interactive()) readkey()
 
   # calculate discounted costs and effects
@@ -90,15 +93,25 @@ cemrun <-function(){
   m.M_treatment <<- m.M_treatment
   table_output <<- table_output
   cat("--------------------------------------------", "\n")
+  cat("Results:", "\n")
+  print(table_output)
+  cat("\n")
+  cat("--------------------------------------------", "\n")
+  if(interactive()) readkey()
+  
   cat("You can find the result table under table_output in your Global Enviroment. 
+      plot1 and plot2 include the model structure and Markov trace.
       m.M and m.M_treatment show the Markov trace
       m.P and m.P_treatment show the transition probability matrix", "\n",
-      
-      "To rerun the analysis with your own alterations type: cemrun() and press enter in the console", " \n")
+      "\n",
+      "\n",
+      "To rerun the analysis with alterations: 
+      Type cemprob() in the console and press enter to redo step 2 (Markov model input)
+      Type cemtpm() in the console and press enter to redo step 3 (Transition probability matrix)
+      Type cemrun() in the console and press enter to run the model with the existing m.M and m.P tables (which you can alter by yourself)", " \n",
+      "To start over, type cemtool() in the console and press enter", "\n")
   cat("--------------------------------------------", "\n")
-  cat("Result table:", "\n")
-  return(table_output)
-  cat("--------------------------------------------", "\n")
+ 
   cat("Finished", "\n")
   }
 

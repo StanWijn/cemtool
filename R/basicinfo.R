@@ -136,7 +136,7 @@ basic <- function(){
     
     ## plot:
     output$plotmodel <- renderPlot({
-     if(input$save ==0 & input$save2 == 0){second(input$healthstates)
+     if(input$save ==0 & input$save2 == 0){first(input$healthstates)
       }else{
         second(HS)  
       }

@@ -6,7 +6,7 @@ Author: S.R.W. Wijn
 Maintainer: S.R.W. Wijn <stan.wijn@radboudumc.nl>
 Description: Markov models are increasingly used to determine the cost-effectiveness of medical innovations. However, medical researchers still use closed source software to build such models. The ceom-package was build to guide researchers to build their own Markov model in R.The current version supports Markov models that consist of 3 to 6 health-states. More options will be added in the future.  Do you want to join development? Let us know by contacting the package author.
 License: GPL-3
-Depends: shiny, rhandsontable, diagram, shinydashboard
+Depends: shiny, rhandsontable, diagram, shinydashboard, utils
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 6.1.1

@@ -15,6 +15,8 @@ cat("--------------------------------------------", "\n")
 
 cat("
 Our tool will guide you through several steps to complete your own cost-effectiveness model.
+We recommend that you clear all objects from the workspace before continuing. 
+
 Keep in mind that a model structure and transition probabilities are required of the Markov model.
 
 Example: the probability that a healthy patient becomes sick. ", "\n")
@@ -99,7 +101,7 @@ if(HS==3){
 modelinput2 <<- input
 m.P <<-TMB(input[1,])
 m.P_treatment <<- TMB(input[2,])
-
+plot1 <- recordPlot(second(HS))
 
 cat("Do you want to alter the transition probability matrix? Yes / No", "\n")
 prompt_matrix <- if (interactive())  askYesNo("Do you want to alter the transition probability matrix?", "\n")
