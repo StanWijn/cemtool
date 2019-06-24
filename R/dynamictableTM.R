@@ -1,5 +1,5 @@
 # Dynamic table to alter treatment effect
-#' @import rhandsontable shiny shinydashboard
+#' @import rhandsontable shiny shinydashboard utils
 
 
 
@@ -64,7 +64,7 @@ editmatrix <- function(outdir=getwd()){
                         #  uiOutput("message", inline=TRUE),
                         div(class='row',
                             div(class="col-sm-6",
-                                actionButton("save2", "Save and/or update plot")))
+                                actionButton("save2", "Save")))
                       ),
                       tags$hr())
       )
