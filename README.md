@@ -4,7 +4,7 @@ There are multiple software systems that can be used to build Markov models for 
 
 --------
 
-To install 'cemtool' in R use:
+## To install 'cemtool' in R:
  
  First, you need to install the devtools package. You can do this from CRAN. Start R and then type 
  ```
