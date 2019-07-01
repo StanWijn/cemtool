@@ -16,4 +16,16 @@ To install 'cemtool' in R use:
  ```
  install_github("StanWijn/cemtool")
  ```
+ You can ignore any warning messages.
+ 
+  
+ To load the package, type:
+ ```
+ library(cemtool)
+ ```
 
+To start the tool, type: 
+
+```
+cemtool()
+```
