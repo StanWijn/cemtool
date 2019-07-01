@@ -102,7 +102,7 @@ modelinput2 <<- input
 m.P <<-TMB(input[1,])
 m.P_treatment <<- TMB(input[2,])
 second(HS)
-plot1 <- recordPlot(second(HS))
+plot1 <<- recordPlot(second(HS))
 
 cat("Do you want to alter the transition probability matrix? Yes / No", "\n")
 prompt_matrix <- if (interactive())  askYesNo("Do you want to alter the transition probability matrix?", "\n")

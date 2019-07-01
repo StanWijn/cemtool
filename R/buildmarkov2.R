@@ -16,18 +16,24 @@ cemrun <-function(){
      # close the loop
   }
 
-
-
+  ifrm <- function(obj, env = globalenv()) { #build function to detect if same plot already exists and remove
+    obj <- deparse(substitute(obj))
+    if(exists(obj, envir = env)) {
+      rm(list = obj, envir = env)
+    }
+  } 
+  
+  ifrm(plot2) #remove plot2 if already existing -> otherwise would not update. 
+ 
   matplot(0:n.t, m.M, type = 'l',
           ylab = "Probability of state occupancy",
           xlab = "Cycle",
           main = "Markov Trace")
   legend("topright", v.n, col = 1:n.s,lty = 1:n.s, bty = "n")  # add a legend to the graph
-  cat("Inspect the Markov Trace in the plot window to the right and check if is as you expected.")
-  plot2 <- recordPlot( matplot(0:n.t, m.M, type = 'l',
-                               ylab = "Probability of state occupancy",
-                               xlab = "Cycle",
-                               main = "Markov Trace"))
+  plot2 <<- recordPlot()
+  
+  cat("Inspect the Markov Trace (of the usual care strategy) in the plot window to the right and check if is as you expected.")
+ 
   if(interactive()) readkey()
 
   # calculate discounted costs and effects

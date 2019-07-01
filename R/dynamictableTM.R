@@ -72,9 +72,9 @@ editmatrix <- function(outdir=getwd()){
   
 
   server <- shinyServer(function(input, output, session) {
-    session$onSessionEnded(function() {
-      stopApp()
-    })
+   session$onSessionEnded(function() {
+     stopApp()
+   })
 
     values <- reactiveValues()
 
@@ -150,5 +150,5 @@ editmatrix <- function(outdir=getwd()){
 
   ## run app
   runApp(shinyApp(ui= dashboardPage(header, sidebar, body), server=server))
-  return(invisible())
+  #return(invisible())
 }

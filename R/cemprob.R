@@ -86,7 +86,9 @@ cemprob <-function(){
 
 
 cemtpm <- function(){
+  if(interactive()) readkey()
   editmatrix(m.P)
+  
   if(interactive()) readkey()
   
   cat("--------------------------------------------", "\n")
