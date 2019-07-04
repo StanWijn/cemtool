@@ -174,7 +174,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
       finalDF2 <- isolate(values[["DFcost"]])
       finalDF3 <- isolate(values[["DFutil"]])
       finalDF <- cbind(finalDF1, finalDF2, finalDF3)
-      modelinput2 <<- finalDF
+      modelinput <<- finalDF
 
     }
     )

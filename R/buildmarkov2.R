@@ -1,11 +1,50 @@
-########  Cost effectiveness model  #############
-########      S.R.W. Wijn MSc, 2018     #############
-#################################################
-#Markov model in R: Deterministic
 
-
+#' Run the Markov model with input generated from \code{cemtool()}, \code{cemprob()},\code{cemtpm()}
+#' 
+#' 
+#' The \code{cemtool()} package provides a step-by-step tool to guide users in building a default Markov model.
+#' The tool guides the user though the steps of the development of a Markov model and will present the final result using graphs and tables. 
+#' The only prerequisite is that the user knows the structure of the model and the transition probabilities, no calculations or coding is required.
+#'
+#' @return The following variables will be created in the Global Enviroment:
+#' @return --- Full Markov trace (m.M and m.M_treatment)
+#' @return --- Calculate the costs and effects for both strategies. 
+#' @return --- Results are saved (table_output) and shown in the console. 
+#' @return --- The model structure and markov trace are both plotted and saved (plot1 and plot2)
+#' 
+#' @details 
+#' There are multiple software systems that can be used to build Markov models for cost-effectiveness analyses
+#' like TreeAge, Excel or R. Although there are numerous advantages to use R over the others, 
+#' the biggest downside is the steep learning curve from R. 
+#' The \code{cemtool()}  package aims to close this gap by introducing a step-by-step tool
+#' to guide users in building a default Markov models. 
+#' The tool guides the user though the steps of the development of a Markov model 
+#' and will present the final result using graphs and tables. 
+#' The only prerequisite is that the user knows the structure of the model and the transition probabilities,
+#' no calculations or coding is required.
+#' 
+#' -- \strong{Required variables in the Global Enviroment before the \code{cemprob()} function will work:}
+#' 
+#' - Number of healhstates (HS) \cr  
+#' - Names of the healthstates (HS1, HS2 ... HSn, dead) \cr  
+#' - Names of both the intervention (intervention) and usual care strategy (control) \cr  
+#' - Number of cycles (n.t)\cr  
+#' - A vector of the strategy names (Strategies)\cr  
+#' - A vector of the healhstate names (v.n) \cr
+#' 
+#' These can be generated with the \code{cemtool()} function.
+#' 
+#' 
+#' @author S.R.W. Wijn MSc <stan.wijn@@radboudumc.nl>
+#'
+#' @examples
+#' cemtool() # Start from stratch, please clear the objects from the Global Enviroment
+#' cemprob() # Start from the second phase (definding the parameters) 
+#' cemtpm()  # Start from the third phase (modify the transition probability matrix)
+#' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
+#' 
 cemrun <-function(){
-  input <- modelinput2
+  input <- modelinput
 
 
     for (t in 1:n.t){

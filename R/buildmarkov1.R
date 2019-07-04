@@ -79,7 +79,7 @@ runtable()
 v.dwc <<-  1 / ((1 + d.rc) ^ (0:n.t))
 v.dwe <<-  1 / ((1 + d.re) ^ (0:n.t))
 
-input <- modelinput2
+input <- modelinput
 if(HS==3){
   colnames(input) <- c("p.A", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.absorb',"c.Tr",
@@ -98,14 +98,14 @@ if(HS==3){
                        'u.1', 'u.2', 'u.3', 'u.4', 'u.5', 'u.absorb')
 }
 
-modelinput2 <<- input
+modelinput <<- input
 m.P <<-TMB(input[1,])
 m.P_treatment <<- TMB(input[2,])
 second(HS)
 plot1 <<- recordPlot(second(HS))
 
-cat("Do you want to alter the transition probability matrix? Yes / No", "\n")
-prompt_matrix <- if (interactive())  askYesNo("Do you want to alter the transition probability matrix?", "\n")
+cat("OPTIONAL: Do you want to alter the transition probability matrix? Yes / No", "\n")
+prompt_matrix <- if (interactive())  askYesNo("OPTIONAL: Do you want to alter the transition probability matrix?", "\n")
 
 
 if(prompt_matrix == FALSE | is.na(prompt_matrix)){
@@ -114,6 +114,8 @@ if(prompt_matrix == FALSE | is.na(prompt_matrix)){
 } else if(prompt_matrix == TRUE){
   editmatrix(m.P)
   if(interactive()) readkey()
+
+  #later stage: Insert a backward function to modify the modelinput data.frame after altering the TPM
   
   cat("--------------------------------------------", "\n")
   cemrun()
