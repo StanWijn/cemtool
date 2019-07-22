@@ -45,7 +45,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' cemtool() # Start from stratch, please clear the objects from the Global Enviroment
+#' cemtool() # Start from stratch (clear the cemtool environment from the Global Environment)
 #' cemprob() # Start from the second phase (definding the parameters) 
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
@@ -54,10 +54,12 @@
 #' 
 
 cemtool <-function(){ 
-
-buildmarkov()
-
-}
+  cemtool_intro()
+  basic()
+  cemtool_step2()
+  cemtool_step3()
+  return(cemtool.env)
+  }
 
 
 utils::globalVariables(c("HS", "Strategies","v.n", "control", "intervention",
@@ -72,4 +74,4 @@ cemtool.env <- new.env()
 
 ### todo:
 # fix first image
-# fix export of variables to global env. 
+

@@ -99,21 +99,14 @@ basic <- function(){
     # step 1: health state
     observeEvent(input$save | input$save2,{
       assign('HS', as.numeric(input$healthstates), envir = cemtool.env)
-    }) 
-    
-    # step 2: names of health states:
-    observeEvent(input$save| input$save2,{
+      # step 2: names of health states:
       assign('HS1', as.character(input$HS1) , envir = cemtool.env)
       assign('HS2', as.character(input$HS2) , envir = cemtool.env)
       assign('HS3', as.character(input$HS3) , envir = cemtool.env)
       assign('HS4', as.character(input$HS4) , envir = cemtool.env)
       assign('HS5', as.character(input$HS5) , envir = cemtool.env)
       assign('dead', as.character(input$dead) , envir = cemtool.env)
-      }) 
-    
-    # step 3: other variables:
-    observeEvent(input$save | input$save2,{
-      as.character(input$HS1) 
+      # step 3: other variables:
       assign('n.t', as.integer(input$cycles), envir = cemtool.env)
       assign('control', as.character(input$usualcare), envir = cemtool.env)
       assign('intervention', as.character(input$intervention), envir = cemtool.env)
@@ -124,17 +117,17 @@ basic <- function(){
         assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$dead), envir = cemtool.env)
       } else if(cemtool.env$HS==4){
         assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$dead), envir = cemtool.env)
-       
+        
       } else if(cemtool.env$HS==5){
         assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$HS4, cemtool.env$dead), envir = cemtool.env)
-       
+        
       } else if(cemtool.env$HS==6){
         assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3,
                         cemtool.env$HS4, cemtool.env$HS5, cemtool.env$dead), envir = cemtool.env)
-     
-      }
-      }
-    )
+      
+    }
+      }) 
+    
     
     
     ## plot:
@@ -143,7 +136,6 @@ basic <- function(){
       }else{
         second(cemtool.env$HS)  
       }
-      
     }, width = 900, height = 600)
     
     
@@ -167,5 +159,6 @@ basic <- function(){
   runApp(shinyApp(ui = dashboardPage(header, sidebar, body), server))
   # runApp(list(ui=ui, server=server))
   return(invisible())
+  
 }
 

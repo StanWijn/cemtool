@@ -4,7 +4,14 @@
 \alias{cemprob}
 \title{Second step of the cemtool: Define the transition probabilities, cost and utility values}
 \usage{
-cemprob()
+cemprob(HS = cemtool.env$HS, HS1 = cemtool.env$HS1,
+  HS2 = cemtool.env$HS2, HS3 = cemtool.env$HS3,
+  HS4 = cemtool.env$HS4, HS5 = cemtool.env$HS5,
+  dead = cemtool.env$dead, n.t = cemtool.env$n.t,
+  control = cemtool.env$control,
+  intervention = cemtool.env$intervention,
+  Strategies = cemtool.env$Strategies, n.s = cemtool.env$n.s,
+  v.n = cemtool.env$v.n)
 }
 \value{
 The following variables will be created in the Global Enviroment:
