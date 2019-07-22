@@ -98,47 +98,50 @@ basic <- function(){
     
     # step 1: health state
     observeEvent(input$save | input$save2,{
-      HS <<- as.numeric(input$healthstates)
+      assign('HS', as.numeric(input$healthstates), envir = cemtool.env)
     }) 
     
     # step 2: names of health states:
     observeEvent(input$save| input$save2,{
-      HS1 <<- as.character(input$HS1) 
-      HS2 <<- as.character(input$HS2) 
-      HS3 <<- as.character(input$HS3) 
-      HS4 <<- as.character(input$HS4) 
-      HS5 <<- as.character(input$HS5) 
-      dead <<- as.character(input$dead)}) 
+      assign('HS1', as.character(input$HS1) , envir = cemtool.env)
+      assign('HS2', as.character(input$HS2) , envir = cemtool.env)
+      assign('HS3', as.character(input$HS3) , envir = cemtool.env)
+      assign('HS4', as.character(input$HS4) , envir = cemtool.env)
+      assign('HS5', as.character(input$HS5) , envir = cemtool.env)
+      assign('dead', as.character(input$dead) , envir = cemtool.env)
+      }) 
     
     # step 3: other variables:
     observeEvent(input$save | input$save2,{
-      n.t <<- as.integer(input$cycles)})
-    observeEvent(input$save| input$save2,{
-      control <<- as.character(input$usualcare)}) 
-    observeEvent(input$save| input$save2,{
-      intervention <<- as.character(input$intervention)}) 
-    observeEvent(input$save| input$save2,{
-      Strategies <<- c(control, intervention)})
-    observeEvent(input$save| input$save2,{
-      n.s <<- HS})
-    observeEvent(input$save| input$save2,{
-      if(HS==3){
-        v.n <<- c(HS1, HS2, dead)
-      } else if(HS==4){
-        v.n <<- c(HS1, HS2, HS3, dead)
-      } else if(HS==5){
-        v.n <<- c(HS1, HS2, HS3, HS4, dead)
-      } else if(HS==6){
-        v.n <<- c(HS1, HS2, HS3, HS4, HS5, dead)
+      as.character(input$HS1) 
+      assign('n.t', as.integer(input$cycles), envir = cemtool.env)
+      assign('control', as.character(input$usualcare), envir = cemtool.env)
+      assign('intervention', as.character(input$intervention), envir = cemtool.env)
+      assign('Strategies', c(cemtool.env$control, cemtool.env$intervention), envir = cemtool.env)
+      assign('n.s', cemtool.env$HS, envir = cemtool.env)
+      
+      if(cemtool.env$HS==3){
+        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$dead), envir = cemtool.env)
+      } else if(cemtool.env$HS==4){
+        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$dead), envir = cemtool.env)
+       
+      } else if(cemtool.env$HS==5){
+        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$HS4, cemtool.env$dead), envir = cemtool.env)
+       
+      } else if(cemtool.env$HS==6){
+        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3,
+                        cemtool.env$HS4, cemtool.env$HS5, cemtool.env$dead), envir = cemtool.env)
+     
       }
-    })
+      }
+    )
     
     
     ## plot:
     output$plotmodel <- renderPlot({
      if(input$save ==0 & input$save2 == 0){first(input$healthstates)
       }else{
-        second(HS)  
+        second(cemtool.env$HS)  
       }
       
     }, width = 900, height = 600)

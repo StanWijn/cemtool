@@ -41,11 +41,12 @@ no calculations or coding is required.
 These can be generated with the \code{cemtool()} function.
 }
 \examples{
+\dontrun{
 cemtool() # Start from stratch, please clear the objects from the Global Enviroment
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
-
+}
 
 }
 \author{

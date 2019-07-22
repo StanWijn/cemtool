@@ -13,7 +13,9 @@ The following variables will be created in the Global Enviroment:
 
 --- Calculate the costs and effects for both strategies.
 
---- Results are saved (table_output) and shown in the console. The model structure and markov trace are both plotted and saved (plot1 and plot2)#'
+--- Results are saved (table_output) and shown in the console.
+
+--- The model structure and markov trace are both plotted and saved (plot1 and plot2)
 }
 \description{
 The \code{cemtool()} package provides a step-by-step tool to guide users in building a default Markov model.
@@ -43,11 +45,12 @@ no calculations or coding is required.
 These can be generated with the \code{cemtool()} function.
 }
 \examples{
+\dontrun{
 cemtool() # Start from stratch, please clear the objects from the Global Enviroment
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
-
+}
 }
 \author{
 S.R.W. Wijn MSc <stan.wijn@radboudumc.nl>

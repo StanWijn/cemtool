@@ -2,7 +2,7 @@
 #' @import rhandsontable shiny shinydashboard
 
 
-editTable <- function(DF, outdir=getwd(), outfilename="table"){
+editTable <- function(DF, HS, outdir=getwd(), outfilename="table"){
   if(HS==3){
   DFtrans <- DF[,1:3]
   DFcost  <- DF[,c(4:6, 10)]
@@ -162,8 +162,8 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
     
     # --- discount rates
     observeEvent(input$save| input$save2,{
-      d.rc <<- as.numeric(input$d.rc)
-      d.re <<- as.numeric(input$d.re)
+      assign('d.rc', as.numeric(input$d.rc), envir = cemtool.env)
+      assign('d.re', as.numeric(input$d.re), envir = cemtool.env)
     }) 
     
     
@@ -174,7 +174,7 @@ editTable <- function(DF, outdir=getwd(), outfilename="table"){
       finalDF2 <- isolate(values[["DFcost"]])
       finalDF3 <- isolate(values[["DFutil"]])
       finalDF <- cbind(finalDF1, finalDF2, finalDF3)
-      modelinput <<- finalDF
+      assign('modelinput', finalDF, envir = cemtool.env)
 
     }
     )

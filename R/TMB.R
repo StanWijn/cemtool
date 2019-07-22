@@ -1,6 +1,6 @@
 # transition matrix builder
 
-TMB <- function(params){
+TMB <- function(params, n.s, v.n, HS){
   with(as.list(params), {
 # - create transition probability matrix
 

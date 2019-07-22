@@ -1,9 +1,9 @@
 # Dynamic table to alter treatment effect
 #' @import rhandsontable shiny shinydashboard utils
 
+#outdir=getwd()
 
-
-editmatrix <- function(outdir=getwd()){
+editmatrix <- function(m.P, m.P_treatment){
 
     DFtrans <- data.frame(m.P)
     DFcost <- data.frame(m.P_treatment)
@@ -125,14 +125,13 @@ editmatrix <- function(outdir=getwd()){
       #fileType <- isolate(input$fileType)
       finalDF <- isolate(values[["DFtrans"]])
       finalDF2 <- isolate(values[["DFcost"]])
-      m.P <<- as.matrix(finalDF)
-      m.P_treatment <<- as.matrix(finalDF2)
-
-    }
+      assign('m.P', as.matrix(finalDF), envir = cemtool.env)
+      assign('m.P_treatment', as.matrix(finalDF2), envir = cemtool.env)
+     }
     )
 
     output$plotmodel <- renderPlot({
-      second(HS)
+      second(cemtool.env$HS)
     }, width = 900, height = 600)
 
     ##-- Message

@@ -1,6 +1,6 @@
 # Transition probability input
 
-TPI <- function(){
+TPI <- function(HS, Strategies, v.n){
 
 p.Z <- 0
 p.A <- 0

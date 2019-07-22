@@ -53,11 +53,12 @@ The costs for a patient to be on the healhstates for one cycle / year
 The effect size associated with the healthstate. For QALY a value between 1 and 0, from perfect health to death.
 }
 \examples{
+\dontrun{
 cemtool() # Start from stratch, please clear the objects from the Global Enviroment
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
-
+}
 
 
 }

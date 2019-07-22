@@ -1,5 +1,7 @@
 
 #' @import diagram
+#' @importFrom grDevices recordPlot
+#' @importFrom graphics legend matplot
 #'
 require(diagram)
 
@@ -90,7 +92,7 @@ if(HS>5){
 
 
   #--
-  name  <- v.n
+  name  <- cemtool.env$v.n
   plotmat(A = AA, pos = if(HS>4){c(1,HS-3,2)} else {c(1,HS-2,1)}
                   , name = name, box.type =  "diamond", curve = if(HS==3){0.2} else {0.1},
          lwd = 0.9, cex.txt = 1.2, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,

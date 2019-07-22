@@ -35,12 +35,14 @@
 #' These can be generated with the \code{cemtool()} function.
 #' 
 #' @author S.R.W. Wijn MSc <stan.wijn@@radboudumc.nl>
+#' @export
 #' @examples
+#' \dontrun{
 #' cemtool() # Start from stratch, please clear the objects from the Global Enviroment
 #' cemprob() # Start from the second phase (definding the parameters) 
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
-#' 
+#' }
 cemprob <-function(){ 
   
   cat("Step 2: Collect model input:", "\n")
@@ -56,10 +58,14 @@ cemprob <-function(){
     
     Please enter all the probabilities as digits. 5% chance to move from healthy to death is thus: 0.05.", "\n")
   if(interactive()) readkey()
-  modelinput <<- TPI()
+  #modelinput <<- TPI()
+  assign('modelinput', TPI(), envir = cemtool.env)
   # create empty Markov trace
-  m.M_treatment <<- m.M <<- matrix(NA, nrow = n.t + 1, ncol = n.s, dimnames = list(paste("cycle", 0:n.t, sep = " "), v.n))
-  m.M[1,] <<- m.M_treatment[1,] <<- c(1, rep(0, times = HS-1))
+  #m.M_treatment <<- m.M <<- matrix(NA, nrow = n.t + 1, ncol = n.s, dimnames = list(paste("cycle", 0:n.t, sep = " "), v.n))
+  assign('m.M_treatment', matrix(NA, nrow = n.t + 1, ncol = n.s, dimnames = list(paste("cycle", 0:n.t, sep = " "), v.n)), envir = cemtool.env)
+  assign('m.M', matrix(NA, nrow = n.t + 1, ncol = n.s, dimnames = list(paste("cycle", 0:n.t, sep = " "), v.n)), envir = cemtool.env)
+ 
+  m.M[1,] <- m.M_treatment[1,] <- c(1, rep(0, times = HS-1))
   
   
   cat("--------------------------------------------", "\n")
@@ -75,9 +81,9 @@ cemprob <-function(){
   runtable()
   
   # define discount function
-  v.dwc <<-  1 / ((1 + d.rc) ^ (0:n.t))
-  v.dwe <<-  1 / ((1 + d.re) ^ (0:n.t))
-  
+  assign(v.dwc, 1 / ((1 + d.rc) ^ (0:n.t)), envir = cemtool.env)
+  assign(v.dwe, 1 / ((1 + d.re) ^ (0:n.t)), envir = cemtool.env)
+
   input <- modelinput
   if(HS==3){
     colnames(input) <- c("p.A", "p.Y", "p.Z",
@@ -97,10 +103,13 @@ cemprob <-function(){
                          'u.1', 'u.2', 'u.3', 'u.4', 'u.5', 'u.absorb')
   }
   
-  modelinput <<- input
-  m.P <<-TMB(input[1,])
-  m.P_treatment <<- TMB(input[2,])
-  plot1 <- recordPlot(second(HS))
+ # modelinput <<- input
+  assign('modelinput', input, envir = cemtool.env)
+  assign('m.P', TMB(input[1,]), envir = cemtool.env)
+  assign('m.P_treatment', TMB(input[2,]), envir = cemtool.env)
+  second(HS)
+  assign('plot1', recordPlot(second(HS)), envir = cemtool.env)
+ # plot1 <- recordPlot(second(HS))
   
   cat("Do you want to alter the transition probability matrix? Yes / No", "\n")
   prompt_matrix <- if (interactive())  askYesNo("Do you want to alter the transition probability matrix?", "\n")
@@ -155,12 +164,14 @@ cemprob <-function(){
 #' These can be generated with the \code{cemtool()} function.
 #' 
 #' @author S.R.W. Wijn MSc <stan.wijn@@radboudumc.nl>
+#' @export
 #' @examples
+#' \dontrun{
 #' cemtool() # Start from stratch, please clear the objects from the Global Enviroment
 #' cemprob() # Start from the second phase (definding the parameters) 
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
-#' 
+#' }
 #' 
 cemtpm <- function(){
   if(interactive()) readkey()

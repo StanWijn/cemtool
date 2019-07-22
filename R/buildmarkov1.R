@@ -2,7 +2,7 @@ buildmarkov <- function(){
 
 
 cat("Welcome to 'cemtool': the interactive cost-effectiveness model tool build by Radboudumc.
-S.R.W. Wijn (version 0.2)
+S.R.W. Wijn (version 0.3)
 
 This tool allows you to build a simple Markov model in R.
 
@@ -57,16 +57,21 @@ cat("Press enter to open another window in which you can define the transition p
     
     Please enter all the probabilities as digits. 5% chance to move from healthy to death is thus: 0.05.", "\n")
 if(interactive()) readkey()
-modelinput <<- TPI()
+
+assign('modelinput', TPI(cemtool.env$HS, cemtool.env$Strategies, cemtool.env$v.n), envir = cemtool.env)
 # create empty Markov trace
-m.M_treatment <<- m.M <<- matrix(NA, nrow = n.t + 1, ncol = n.s, dimnames = list(paste("cycle", 0:n.t, sep = " "), v.n))
-m.M[1,] <<- m.M_treatment[1,] <<- c(1, rep(0, times = HS-1))
+assign('m.M_treatment', matrix(NA, nrow = cemtool.env$n.t + 1, ncol = cemtool.env$n.s,
+                               dimnames = list(paste("cycle", 0:cemtool.env$n.t, sep = " "), cemtool.env$v.n)), envir = cemtool.env)
+assign('m.M', matrix(NA, nrow = cemtool.env$n.t + 1, ncol = cemtool.env$n.s,
+                     dimnames = list(paste("cycle", 0:cemtool.env$n.t, sep = " "), cemtool.env$v.n)), envir = cemtool.env)
+
+cemtool.env$m.M[1,] <- cemtool.env$m.M_treatment[1,] <- c(1, rep(0, times = cemtool.env$HS-1))
 
 
 cat("--------------------------------------------", "\n")
 
 runtable <- function(){
-  editTable(modelinput)
+  editTable(cemtool.env$modelinput, cemtool.env$HS)
   
   if(interactive()) readkey()
   
@@ -76,33 +81,33 @@ runtable <- function(){
 runtable()
 
 # define discount function
-v.dwc <<-  1 / ((1 + d.rc) ^ (0:n.t))
-v.dwe <<-  1 / ((1 + d.re) ^ (0:n.t))
+assign('v.dwc', 1 / ((1 + cemtool.env$d.rc) ^ (0:cemtool.env$n.t)), envir = cemtool.env)
+assign('v.dwe', 1 / ((1 + cemtool.env$d.re) ^ (0:cemtool.env$n.t)), envir = cemtool.env)
 
-input <- modelinput
-if(HS==3){
-  colnames(input) <- c("p.A", "p.Y", "p.Z",
+#input <- cemtool.env$modelinput
+if(cemtool.env$HS==3){
+  colnames(cemtool.env$modelinput) <- c("p.A", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.absorb',"c.Tr",
                        'u.1', 'u.2', 'u.absorb')
-} else if(HS==4){
-  colnames(input) <- c("p.A", "p.B", "p.C", "p.X", "p.Y", "p.Z",
+} else if(cemtool.env$HS==4){
+  colnames(cemtool.env$modelinput) <- c("p.A", "p.B", "p.C", "p.X", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.3', 'c.absorb','c.Tr',
                        'u.1', 'u.2', 'u.3', 'u.absorb')
-} else if (HS==5){
-  colnames(input) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.W', "p.X", "p.Y", "p.Z",
+} else if (cemtool.env$HS==5){
+  colnames(cemtool.env$modelinput) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.W', "p.X", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.3', 'c.4', 'c.absorb','c.Tr',
                        'u.1', 'u.2', 'u.3', 'u.4', 'u.absorb')
-} else if (HS==6){
-  colnames(input) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.G', "p.H", "p.I", "p.J", 'p.V', 'p.W', "p.X", "p.Y", "p.Z",
+} else if (cemtool.env$HS==6){
+  colnames(cemtool.env$modelinput) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.G', "p.H", "p.I", "p.J", 'p.V', 'p.W', "p.X", "p.Y", "p.Z",
                        'c.1', 'c.2', 'c.3', 'c.4', 'c.5', 'c.absorb','c.Tr',
                        'u.1', 'u.2', 'u.3', 'u.4', 'u.5', 'u.absorb')
 }
 
-modelinput <<- input
-m.P <<-TMB(input[1,])
-m.P_treatment <<- TMB(input[2,])
-second(HS)
-plot1 <<- recordPlot(second(HS))
+#assign('modelinput', input, envir = cemtool.env)
+assign('m.P', TMB(cemtool.env$modelinput[1,], cemtool.env$n.s, cemtool.env$v.n, cemtool.env$HS), envir = cemtool.env)
+assign('m.P_treatment', TMB(cemtool.env$modelinput[2,], cemtool.env$n.s, cemtool.env$v.n, cemtool.env$HS), envir = cemtool.env)
+second(cemtool.env$HS)
+assign('plot1', recordPlot(second(cemtool.env$HS)), envir = cemtool.env)
 
 cat("OPTIONAL: Do you want to alter the transition probability matrix? Yes / No", "\n")
 prompt_matrix <- if (interactive())  askYesNo("OPTIONAL: Do you want to alter the transition probability matrix?", "\n")
@@ -112,7 +117,7 @@ if(prompt_matrix == FALSE | is.na(prompt_matrix)){
   cat("--------------------------------------------", "\n")
   cemrun()
 } else if(prompt_matrix == TRUE){
-  editmatrix(m.P)
+  editmatrix(cemtool.env$m.P, cemtool.env$m.P_treatment)
   if(interactive()) readkey()
 
   #later stage: Insert a backward function to modify the modelinput data.frame after altering the TPM

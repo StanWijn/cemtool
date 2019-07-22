@@ -1,6 +1,6 @@
 Package: cemtool
 Type: Package
-Title: Step by step guide to build a Markov model
+Title: Step By Step Guide to Build a Markov Model
 Version: 0.3
 Author: S.R.W. Wijn
 Maintainer: S.R.W. Wijn <stan.wijn@radboudumc.nl>
