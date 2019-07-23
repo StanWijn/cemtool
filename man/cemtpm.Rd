@@ -9,16 +9,49 @@ cemtpm(HS = cemtool.env$HS, HS1 = cemtool.env$HS1,
   HS4 = cemtool.env$HS4, HS5 = cemtool.env$HS5,
   dead = cemtool.env$dead, n.t = cemtool.env$n.t,
   control = cemtool.env$control,
-  intervention = cemtool.env$intervention,
-  Strategies = cemtool.env$Strategies, v.n = cemtool.env$v.n,
-  d.rc = cemtool.env$d.rc, v.dwc = cemtool.env$v.dwc,
-  d.re = cemtool.env$d.rc, v.dwe = cemtool.env$v.dwe,
-  m.M = cemtool.env$m.M, m.M_treatment = cemtool.env$m.M_treatment,
-  m.P = cemtool.env$m.P, m.P_treatment = cemtool.env$m.P_treatment,
-  modelinput = cemtool.env$modelinput, plot1 = cemtool.env$plot1)
+  intervention = cemtool.env$intervention, d.rc = cemtool.env$d.rc,
+  d.re = cemtool.env$d.rc, m.M = cemtool.env$m.M,
+  m.M_treatment = cemtool.env$m.M_treatment, m.P = cemtool.env$m.P,
+  m.P_treatment = cemtool.env$m.P_treatment,
+  modelinput = cemtool.env$modelinput)
+}
+\arguments{
+\item{HS}{Number of healthstates}
+
+\item{HS1}{String with name of healthstate 1}
+
+\item{HS2}{String with name of healthstate 2}
+
+\item{HS3}{String with name of healthstate 3}
+
+\item{HS4}{String with name of healthstate 4}
+
+\item{HS5}{String with name of healthstate 5}
+
+\item{dead}{String with name of absorption / death state}
+
+\item{n.t}{Number of cycles}
+
+\item{control}{String with name of the usual care strategy}
+
+\item{intervention}{String with name of the intervention strategy}
+
+\item{d.rc}{Discount rate for costs}
+
+\item{d.re}{Discount rate for effects}
+
+\item{m.M}{Matrix showing the Markov trace of usual care, nrow = n.t + 1, ncol = HS}
+
+\item{m.M_treatment}{Matrix showing the Markov trace of intervention strategy, nrow = n.t + 1, ncol = HS}
+
+\item{m.P}{Matrix showing the transition probability matrix of the usual care, nrow = HS, ncol = HS}
+
+\item{m.P_treatment}{Matrix showing the transition probability matrix of the intervention strategy, nrow = HS, ncol = HS}
+
+\item{modelinput}{Matrix with 2 rows that include all the transition probabilities, costs and effects.}
 }
 \value{
-The following variables will be created in the Global Enviroment:
+The following variables will be created in the saved in the cemtool enviroment:
 
 --- Modified transition probability matrix for both strategies (M.P and m.P_treatment).
 
@@ -30,6 +63,7 @@ The tool guides the user though the steps of the development of a Markov model a
 The only prerequisite is that the user knows the structure of the model and the transition probabilities, no calculations or coding is required.
 }
 \details{
+All input arguments can be generated and saved with the \code{cemtool()} function. (cemtool.env <- cemtool())
 There are multiple software systems that can be used to build Markov models for cost-effectiveness analyses
 like TreeAge, Excel or R. Although there are numerous advantages to use R over the others, 
 the biggest downside is the steep learning curve from R. 
@@ -39,24 +73,15 @@ The tool guides the user though the steps of the development of a Markov model
 and will present the final result using graphs and tables. 
 The only prerequisite is that the user knows the structure of the model and the transition probabilities,
 no calculations or coding is required.
-
--- \strong{Required variables in the Global Enviroment before the \code{cemprob()} function will work:}
-
-- Number of healhstates (HS)\cr  
-- Names of the healthstates (HS1, HS2 ... HSn, dead)\cr  
-- Names of both the intervention (intervention) and usual care strategy (control)\cr  
-- Number of cycles (n.t)\cr  
-- Vector of the strategy names (Strategies)\cr  
-- Vector of the healhstate names (v.n) \cr  
-
-These can be generated with the \code{cemtool()} function.
 }
 \examples{
 \dontrun{
-cemtool() # Start from stratch, please clear the objects from the Global Enviroment
+cemtool() # Start from stratch (clear the cemtool environment from the Global Environment)
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
+
+cemtool.env <- cemtool() # To save all input for further modification
 }
 
 }
