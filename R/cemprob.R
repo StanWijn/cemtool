@@ -17,7 +17,7 @@
 #' @param control String with name of the usual care strategy
 #' @param intervention String with name of the intervention strategy
 #' 
-#' @return The following variables will be created in the saved in the cemtool enviroment:
+#' @return The following variables will be created in the saved in the cemtool environment:
 #' @return --- Empty Markov trace matrices for both strategies (m.M and m.M_treatment)
 #' @return --- A dataframe with the modelinput (modelinput)
 #' @return --- Discount rate for costs (d.rc) and effects (d.re)
@@ -93,7 +93,7 @@ cemprob <-function(HS = cemtool.env$HS, HS1 = cemtool.env$HS1, HS2 = cemtool.env
 #' @param m.P_treatment Matrix showing the transition probability matrix of the intervention strategy, nrow = HS, ncol = HS
 #' @param modelinput Matrix with 2 rows that include all the transition probabilities, costs and effects.
 #' 
-#' @return The following variables will be created in the saved in the cemtool enviroment:
+#' @return The following variables will be created in the saved in the cemtool environment:
 #' @return --- Modified transition probability matrix for both strategies (M.P and m.P_treatment).
 #' @return The function will automatically run \code{cemrun()} after finishing
 #' 
