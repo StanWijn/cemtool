@@ -40,7 +40,10 @@ To save the results from the tool, type:
 cemtool.env <- cemtool()
 ```
 
-![alt text](https://stanwijn.github.io/cemtool_image/step1.PNG)
+![Step 1: Basic information](https://stanwijn.github.io/cemtool_image/step1.PNG)
+![Step 2: Markov model input](https://stanwijn.github.io/cemtool_image/step2.PNG)
+![Step 3: Transition probability matrix](https://stanwijn.github.io/cemtool_image/step3.PNG)
+![Step 4: Results](https://stanwijn.github.io/cemtool_image/step4.PNG)
 
 <br>
 <br>
