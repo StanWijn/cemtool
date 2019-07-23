@@ -1,10 +1,10 @@
 # transition matrix builder
 
-TMB <- function(params, n.s, v.n, HS){
+TMB <- function(params, v.n, HS){
   with(as.list(params), {
 # - create transition probability matrix
 
-m.P <- matrix(0, nrow = n.s, ncol = n.s, dimnames = list(v.n, v.n))
+m.P <- matrix(0, nrow = HS, ncol = HS, dimnames = list(v.n, v.n))
 m.P[tail(v.n, n=1), tail(v.n, n=1)] <- 1
 
 if(HS==3){

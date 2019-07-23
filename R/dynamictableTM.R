@@ -8,7 +8,6 @@ editmatrix <- function(m.P, m.P_treatment){
     DFtrans <- data.frame(m.P)
     DFcost <- data.frame(m.P_treatment)
 
-
     title <- tags$div(h2("Step 3: Transition probability matrix"))
     
     header <- dashboardHeader(tags$li(class = "dropdown",
@@ -61,7 +60,6 @@ editmatrix <- function(m.P, m.P_treatment){
       fluidRow(column(4,
                       tags$hr(),
                       wellPanel(
-                        #  uiOutput("message", inline=TRUE),
                         div(class='row',
                             div(class="col-sm-6",
                                 actionButton("save2", "Save")))
@@ -78,7 +76,6 @@ editmatrix <- function(m.P, m.P_treatment){
 
     values <- reactiveValues()
 
-    ## Handsontable
     # --- probability input
     observe({
       if (!is.null(input$hot)) {
@@ -122,7 +119,6 @@ editmatrix <- function(m.P, m.P_treatment){
   
     ## Save
     observeEvent(input$save | input$save2, {
-      #fileType <- isolate(input$fileType)
       finalDF <- isolate(values[["DFtrans"]])
       finalDF2 <- isolate(values[["DFcost"]])
       assign('m.P', as.matrix(finalDF), envir = cemtool.env)
@@ -131,7 +127,7 @@ editmatrix <- function(m.P, m.P_treatment){
     )
 
     output$plotmodel <- renderPlot({
-      second(cemtool.env$HS)
+      second(cemtool.env$HS, cemtool.env$v.n)
     }, width = 900, height = 600)
 
     ##-- Message
@@ -149,5 +145,5 @@ editmatrix <- function(m.P, m.P_treatment){
 
   ## run app
   runApp(shinyApp(ui= dashboardPage(header, sidebar, body), server=server))
-  #return(invisible())
+  return(invisible())
 }

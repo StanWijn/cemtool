@@ -10,8 +10,7 @@ cemprob(HS = cemtool.env$HS, HS1 = cemtool.env$HS1,
   dead = cemtool.env$dead, n.t = cemtool.env$n.t,
   control = cemtool.env$control,
   intervention = cemtool.env$intervention,
-  Strategies = cemtool.env$Strategies, n.s = cemtool.env$n.s,
-  v.n = cemtool.env$v.n)
+  Strategies = cemtool.env$Strategies, v.n = cemtool.env$v.n)
 }
 \value{
 The following variables will be created in the Global Enviroment:

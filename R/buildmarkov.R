@@ -49,6 +49,8 @@
 #' cemprob() # Start from the second phase (definding the parameters) 
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
+#' 
+#' cemtool.env <- cemtool() # To save all input for further modification
 #' }
 #' 
 #' 
@@ -64,14 +66,11 @@ cemtool <-function(){
 
 utils::globalVariables(c("HS", "Strategies","v.n", "control", "intervention",
                         "HS1", "HS2", "HS3", "HS4", "HS5", "HS6",
-                         "n.t", "n.s", "m.M", "m.M_treatment",
+                         "n.t",  "m.M", "m.M_treatment",
                         "modelinput", "d.rc", "d.re", "m.P", 
                         "m.P_treatment", "dead", 'plot1', 'plot2',
                         'v.dwc', 'v.dwe'))
 
 cemtool.env <- new.env()
 
-
-### todo:
-# fix first image
 

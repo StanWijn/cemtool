@@ -2,7 +2,7 @@
 #' @import rhandsontable shiny shinydashboard
 
 
-editTable <- function(DF, HS, outdir=getwd(), outfilename="table"){
+editTable <- function(DF, HS, v.n, outdir=getwd(), outfilename="table"){
   if(HS==3){
   DFtrans <- DF[,1:3]
   DFcost  <- DF[,c(4:6, 10)]
@@ -99,7 +99,7 @@ editTable <- function(DF, HS, outdir=getwd(), outfilename="table"){
 
     values <- reactiveValues()
 
-    ## Handsontable
+
     # --- probability input
     observe({
       if (!is.null(input$hot)) {
@@ -169,7 +169,6 @@ editTable <- function(DF, HS, outdir=getwd(), outfilename="table"){
     
     ## Save
     observeEvent(input$save| input$save2, {
-      #fileType <- isolate(input$fileType)
       finalDF1 <- isolate(values[["DFtrans"]])
       finalDF2 <- isolate(values[["DFcost"]])
       finalDF3 <- isolate(values[["DFutil"]])
@@ -180,7 +179,7 @@ editTable <- function(DF, HS, outdir=getwd(), outfilename="table"){
     )
 
     output$plotmodel <- renderPlot({
-        second(HS)}, width = 900, height = 600)
+        second(HS, v.n)}, width = 900, height = 600)
 
     ## Message
     output$message <- renderUI({

@@ -173,8 +173,6 @@ if(HS==3){
                        paste("u.", tolower(tail(v.n,1)), sep = ""),
                        "c.treatment")
 
-
-
 } else if (HS==6){
   colnames(input) <- c("p.A", "p.B", "p.C", 'p.D', 'p.E', 'p.F', 'p.G', "p.H", "p.I", "p.J",
                        'p.V', 'p.W', "p.X", "p.Y", "p.Z",
@@ -192,10 +190,7 @@ if(HS==3){
                        paste("u.", tolower(tail(v.n,1)), sep = ""),
                        "c.treatment")
    }
-
-
 return(input)
-
 }
 
 

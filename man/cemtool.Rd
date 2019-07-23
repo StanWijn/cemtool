@@ -58,6 +58,8 @@ cemtool() # Start from stratch (clear the cemtool environment from the Global En
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
+
+cemtool.env <- cemtool() # To save all input for further modification
 }
 
 
