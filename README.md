@@ -40,6 +40,8 @@ To save the results from the tool, type:
 cemtool.env <- cemtool()
 ```
 
+![alt text](https://stanwijn.github.io/cemtool_image/step1.PNG)
+
 <br>
 <br>
 <br>
