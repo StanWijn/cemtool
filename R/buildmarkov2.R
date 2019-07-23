@@ -24,7 +24,7 @@
 #' @param m.P_treatment Matrix showing the transition probability matrix of the intervention strategy, nrow = HS, ncol = HS
 #' @param modelinput Matrix with 2 rows that include all the transition probabilities, costs and effects.
 #' 
-#' @return The following variables will be created in the Global Enviroment:
+#' @return The following variables will be created in the saved in the cemtool enviroment:
 #' @return --- Full Markov trace (m.M and m.M_treatment)
 #' @return --- Calculate the costs and effects for both strategies. 
 #' @return --- Results are saved (table_output) and shown in the console. 

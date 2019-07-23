@@ -6,7 +6,7 @@
 #' The tool guides the user though the steps of the development of a Markov model and will present the final result using graphs and tables. 
 #' The only prerequisite is that the user knows the structure of the model and the transition probabilities, no calculations or coding is required.
 #' 
-#' @return The following variables will be created in the Global Enviroment:
+#' @return The following variables will be created in the saved in the cemtool enviroment:
 #' @return --- Number of healhstates (HS)
 #' @return --- Names of the healthstates (HS1, HS2 ... HSn, dead)
 #' @return --- Names of both the intervention (intervention) and usual care strategy (control)
