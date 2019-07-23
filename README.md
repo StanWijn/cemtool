@@ -61,13 +61,5 @@ Flow of functions:
 --------
 --------
 
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-
 We thank our testers:
 S. Patel Msc
