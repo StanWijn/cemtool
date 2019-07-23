@@ -35,6 +35,10 @@ To start the tool, type:
 cemtool()
 ```
 
+To save the results from the tool, type:
+```
+cemtool.env <- cemtool()
+```
 
 <br>
 <br>
