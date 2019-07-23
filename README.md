@@ -54,6 +54,9 @@ Step 3: OPTIONAL: Alter the transition probability matrix to enable backward pro
 Step 4: Inspect the Markov trace and the final results. 
 ![Step 4: Results](https://stanwijn.github.io/cemtool_image/step4.PNG)
 
+Flow of functions:
+![Flow of functions](https://stanwijn.github.io/cemtool_image/flow.PNG)
+
 <br>
 <br>
 <br>
