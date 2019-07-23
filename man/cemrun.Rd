@@ -4,7 +4,18 @@
 \alias{cemrun}
 \title{Run the Markov model with input generated from \code{cemtool()}, \code{cemprob()},\code{cemtpm()}}
 \usage{
-cemrun()
+cemrun(HS = cemtool.env$HS, HS1 = cemtool.env$HS1,
+  HS2 = cemtool.env$HS2, HS3 = cemtool.env$HS3,
+  HS4 = cemtool.env$HS4, HS5 = cemtool.env$HS5,
+  dead = cemtool.env$dead, n.t = cemtool.env$n.t,
+  control = cemtool.env$control,
+  intervention = cemtool.env$intervention,
+  Strategies = cemtool.env$Strategies, v.n = cemtool.env$v.n,
+  d.rc = cemtool.env$d.rc, v.dwc = cemtool.env$v.dwc,
+  d.re = cemtool.env$d.rc, v.dwe = cemtool.env$v.dwe,
+  m.M = cemtool.env$m.M, m.M_treatment = cemtool.env$m.M_treatment,
+  m.P = cemtool.env$m.P, m.P_treatment = cemtool.env$m.P_treatment,
+  modelinput = cemtool.env$modelinput, plot1 = cemtool.env$plot1)
 }
 \value{
 The following variables will be created in the Global Enviroment:

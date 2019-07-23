@@ -54,10 +54,12 @@ The effect size associated with the healthstate. For QALY a value between 1 and 
 }
 \examples{
 \dontrun{
-cemtool() # Start from stratch, please clear the objects from the Global Enviroment
+cemtool() # Start from stratch (clear the cemtool environment from the Global Environment)
 cemprob() # Start from the second phase (definding the parameters) 
 cemtpm()  # Start from the third phase (modify the transition probability matrix)
 cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
+
+cemtool.env <- cemtool() # To save all input for further modification
 }
 
 

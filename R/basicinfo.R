@@ -78,7 +78,6 @@ basic <- function(){
     fluidRow(column(4,
       tags$hr(),
      wellPanel(
-     #  uiOutput("message", inline=TRUE),
        div(class='row',
            div(class="col-sm-6",
                actionButton("save2", "Save and/or update plot")))
@@ -99,51 +98,60 @@ basic <- function(){
     # step 1: health state
     observeEvent(input$save | input$save2,{
       assign('HS', as.numeric(input$healthstates), envir = cemtool.env)
-    }) 
-    
-    # step 2: names of health states:
-    observeEvent(input$save| input$save2,{
+      # step 2: names of health states:
       assign('HS1', as.character(input$HS1) , envir = cemtool.env)
       assign('HS2', as.character(input$HS2) , envir = cemtool.env)
       assign('HS3', as.character(input$HS3) , envir = cemtool.env)
       assign('HS4', as.character(input$HS4) , envir = cemtool.env)
       assign('HS5', as.character(input$HS5) , envir = cemtool.env)
       assign('dead', as.character(input$dead) , envir = cemtool.env)
-      }) 
-    
-    # step 3: other variables:
-    observeEvent(input$save | input$save2,{
-      as.character(input$HS1) 
+      # step 3: other variables:
       assign('n.t', as.integer(input$cycles), envir = cemtool.env)
       assign('control', as.character(input$usualcare), envir = cemtool.env)
       assign('intervention', as.character(input$intervention), envir = cemtool.env)
-      assign('Strategies', c(cemtool.env$control, cemtool.env$intervention), envir = cemtool.env)
-      assign('n.s', cemtool.env$HS, envir = cemtool.env)
+      cemtool.env$Strategies <- c(cemtool.env$control, cemtool.env$intervention)
+      cemtool.env$plot <- second(cemtool.env$HS, cemtool.env$v.n)  
       
       if(cemtool.env$HS==3){
-        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$dead), envir = cemtool.env)
+        cemtool.env$v.n <- c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$dead)
       } else if(cemtool.env$HS==4){
-        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$dead), envir = cemtool.env)
-       
+        cemtool.env$v.n <- c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$dead)
+        
       } else if(cemtool.env$HS==5){
-        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$HS4, cemtool.env$dead), envir = cemtool.env)
-       
+        cemtool.env$v.n <- c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3, cemtool.env$HS4, cemtool.env$dead)
+        
       } else if(cemtool.env$HS==6){
-        assign('v.n', c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3,
-                        cemtool.env$HS4, cemtool.env$HS5, cemtool.env$dead), envir = cemtool.env)
-     
-      }
-      }
-    )
+        cemtool.env$v.n <- c(cemtool.env$HS1, cemtool.env$HS2, cemtool.env$HS3,
+                        cemtool.env$HS4, cemtool.env$HS5, cemtool.env$dead)
+      
+    }
+      }) 
+    
     
     
     ## plot:
     output$plotmodel <- renderPlot({
-     if(input$save ==0 & input$save2 == 0){first(input$healthstates)
+     if(input$save ==0 & input$save2 == 0){
+        first(input$healthstates)
       }else{
-        second(cemtool.env$HS)  
+        HS <- input$healthstates
+        
+        if(input$healthstates==3){
+          v.n <- c(input$HS1, input$HS2, input$dead)
+        } else if(input$healthstates==4){
+          v.n <- c(input$HS1, input$HS2, input$HS3, input$dead)
+          
+        } else if(input$healthstates==5){
+          v.n <- c(input$HS1, input$HS2, input$HS3, input$HS4, input$dead)
+          
+        } else if(input$healthstates==6){
+          v.n <- c(input$HS1, input$HS2, input$HS3,
+                   input$HS4, input$HS5, input$dead)
+          
+        }
+        second(HS, v.n)
+
       }
-      
     }, width = 900, height = 600)
     
     
@@ -165,7 +173,7 @@ basic <- function(){
   
   ## run app
   runApp(shinyApp(ui = dashboardPage(header, sidebar, body), server))
-  # runApp(list(ui=ui, server=server))
   return(invisible())
+  
 }
 

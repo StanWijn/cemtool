@@ -44,7 +44,14 @@
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
 #' }
-cemrun <-function(){
+cemrun <-function(HS = cemtool.env$HS, HS1 = cemtool.env$HS1, HS2 = cemtool.env$HS2, HS3 = cemtool.env$HS3,
+                  HS4 = cemtool.env$HS4, HS5 = cemtool.env$HS5, dead = cemtool.env$dead, n.t = cemtool.env$n.t,
+                  control = cemtool.env$control, intervention = cemtool.env$intervention, Strategies = cemtool.env$Strategies,
+                  v.n = cemtool.env$v.n,
+                  d.rc = cemtool.env$d.rc, v.dwc = cemtool.env$v.dwc, d.re = cemtool.env$d.rc, v.dwe = cemtool.env$v.dwe,
+                  m.M = cemtool.env$m.M, m.M_treatment = cemtool.env$m.M_treatment,
+                  m.P = cemtool.env$m.P, m.P_treatment = cemtool.env$m.P_treatment, modelinput = cemtool.env$modelinput,
+                  plot1 = cemtool.env$plot1){
   input <- cemtool.env$modelinput
 
 
@@ -53,26 +60,17 @@ cemrun <-function(){
       # calculate the proportion of the cohort in each state at time t
       cemtool.env$m.M[t + 1, ] <- t(cemtool.env$m.M[t, ])    %*% cemtool.env$m.P
       cemtool.env$m.M_treatment[t + 1, ] <- t(cemtool.env$m.M_treatment[t, ])    %*% cemtool.env$m.P_treatment
-     # close the loop
+
   }
 
-  ifrm <- function(obj, env = globalenv()) { #build function to detect if same plot already exists and remove
-    obj <- deparse(substitute(obj))
-    if(exists(obj, envir = env)) {
-      rm(list = obj, envir = env)
-    }
-  } 
-  
-  ifrm(plot2) #remove plot2 if already existing -> otherwise would not update. 
  
   matplot(0:cemtool.env$n.t, cemtool.env$m.M, type = 'l',
           ylab = "Probability of state occupancy",
           xlab = "Cycle",
           main = "Markov Trace")
-  legend("topright", cemtool.env$v.n, col = 1:cemtool.env$n.s,lty = 1:cemtool.env$n.s, bty = "n")  # add a legend to the graph
+  legend("topright", cemtool.env$v.n, col = 1:cemtool.env$HS,lty = 1:cemtool.env$HS, bty = "n")  # add a legend to the graph
   assign('plot2', recordPlot(), envir = cemtool.env)
-  #plot2 <<- recordPlot()
-  
+
   cat("Inspect the Markov Trace (of the usual care strategy) in the plot window to the right and check if is as you expected.")
  
   if(interactive()) readkey()
@@ -118,9 +116,9 @@ cemrun <-function(){
 
   # calculate lifelong per patient discounted cost and QALYs.
   costdiff    <- t.c_tr - t.c      # calculate the difference in discounted costs between the two strategies
-  names(costdiff)   <- "Incremental costs"
+  names(costdiff)   <- ""
   effectdiff <-  t.e_tr - t.e      # calculate the difference in discounted effects between the two strategies
-  names(effectdiff)   <- "QALYs gained"
+  names(effectdiff)   <- ""
   ICER        <- costdiff / effectdiff                 # calculate the ICER
   names(ICER) <- "ICER"
   results     <- c(costdiff, effectdiff, ICER)         # combine the results
@@ -135,11 +133,9 @@ cemrun <-function(){
 
   table_output <- cbind(cemtool.env$Strategies, C, E, costdiff, effectdiff, ICER)     # combine all data in a table
   table_output <- as.data.frame(table_output)    # create a data frame
-                                              # print the table
- # assign('m.M', m.M, envir = cemtool.env)
- # assign('m.M_treatment', m.M_treatment, envir = cemtool.env)
- # assign('table_output', table_output, envir = cemtool.env)
- 
+  names(table_output) <- c("", "Cost", "QALY",  "Costs diff", "QALYs diff", "ICER")
+  cemtool.env$table_output <- table_output  
+
   cat("--------------------------------------------", "\n")
   cat("Results:", "\n")
   print(table_output)
@@ -147,20 +143,23 @@ cemrun <-function(){
   cat("--------------------------------------------", "\n")
   if(interactive()) readkey()
   
-  cat("You can find the result table under table_output in your Global Enviroment. 
-      plot1 and plot2 include the model structure and Markov trace.
-      m.M and m.M_treatment show the Markov trace
-      m.P and m.P_treatment show the transition probability matrix", "\n",
-      "\n",
-      "\n",
-      "To rerun the analysis with alterations: 
+  cat("To rerun the analysis with alterations: 
       Type cemprob() in the console and press enter to redo step 2 (Markov model input)
       Type cemtpm() in the console and press enter to redo step 3 (Transition probability matrix)
       Type cemrun() in the console and press enter to run the model with the existing m.M and m.P tables (which you can alter by yourself)", " \n",
-      "To start over, type cemtool() in the console and press enter", "\n")
+      "To start over, type cemtool() in the console and press enter", "\n",
+      "To save the results: cemtool.env <- cemtool()", "\n",
+      "\n",
+      "\n",
+      "When you save the results, cemtool.env$table_output will show the result table. 
+      cemtool.env$plot1 and cemtool.env$plot2 include the model structure and Markov trace.
+      cemtool.env$m.M and cemtool.env$m.M_treatment show the Markov trace
+      cemtool.env$m.P and cemtool.env$m.P_treatment show the transition probability matrix", "\n")
+     
   cat("--------------------------------------------", "\n")
  
   cat("Finished", "\n")
+  return(cemtool.env)
   }
 
 
