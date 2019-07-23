@@ -52,14 +52,13 @@ first <- function(HS){
           lwd = 0.9, cex.txt = 1.2, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
           arr.pos = 0.67, shadow.size = 0,
           arr.type = "curved",
-          #txt.yadj = 1, txt.xadj = 1,
           box.cex = 0.8,
           main = "Markov model")
   
 }
 
 
-second <- function(HS){
+second <- function(HS, v.n){
   DiffMat  <- matrix(data = 0, nrow = HS, ncol = HS)
   AA <- as.data.frame(DiffMat)
 
@@ -92,13 +91,12 @@ if(HS>5){
 
 
   #--
-  name  <- cemtool.env$v.n
+  name  <- v.n
   plotmat(A = AA, pos = if(HS>4){c(1,HS-3,2)} else {c(1,HS-2,1)}
                   , name = name, box.type =  "diamond", curve = if(HS==3){0.2} else {0.1},
          lwd = 0.9, cex.txt = 1.2, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
          arr.pos = 0.67, shadow.size = 0,
           arr.type = "curved",
-          #txt.yadj = 1, txt.xadj = 1,
          box.cex = 0.8,
                     main = "Markov model")
 
