@@ -40,9 +40,18 @@ To save the results from the tool, type:
 cemtool.env <- cemtool()
 ```
 
+# Images:
+
+Step 1: Define number of healthstates and names
 ![Step 1: Basic information](https://stanwijn.github.io/cemtool_image/step1.PNG)
+
+Step 2: Define transition probabilities, costs and effects (QALY/ utility) for both strategies
 ![Step 2: Markov model input](https://stanwijn.github.io/cemtool_image/step2.PNG)
+
+Step 3: OPTIONAL: Alter the transition probability matrix to enable backward probabilties
 ![Step 3: Transition probability matrix](https://stanwijn.github.io/cemtool_image/step3.PNG)
+
+Step 4: Inspect the Markov trace and the final results. 
 ![Step 4: Results](https://stanwijn.github.io/cemtool_image/step4.PNG)
 
 <br>
