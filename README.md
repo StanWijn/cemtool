@@ -62,4 +62,4 @@ Flow of functions:
 --------
 
 We thank our testers:
-S. Patel Msc
+S. Patel MSc, M. Scholte MSc
