@@ -1,0 +1,43 @@
+---
+title: "probability table"
+author: "Stan Wijn MSc"
+date: "9/25/2019"
+output: html_document
+---
+
+"cemtool" probability cheat-sheet:
+from in the first column, to in the first row
+
+3 health states
+
+| --- |  1  |  2  |  3   |  
+|  1  |  -   | p.A |  p.Z |  
+|  2  |     |   -  |  p.Y |  
+|  3  |     |     |   -   |  
+
+4 health states
+
+| --- |  1  |  2  |  3   | 4   |  
+|  1  |  -   | p.A |  p.B | p.Z |  
+|  2  |     |   -  |  p.C | p.Y |  
+|  3  |     |     |   -   | p.X |  
+|  4  |     |     |      |  -   |  
+
+5 health states
+
+| --- |  1  |  2  |  3   | 4   | 5   | 
+|  1  |   -  | p.A |  p.B | p.D | p.Z | 
+|  2  |     |   -  |  p.C | p.E | p.Y | 
+|  3  |     |     |  -    | p.F | p.X | 
+|  4  |     |     |      |  -   | p.W | 
+|  5  |     |     |      |     |   -  | 
+
+6 health states
+
+| --- |  1  |  2  |  3   | 4   | 5   | 6   |
+|  1  |   - | p.A |  p.B | p.D | p.G | p.Z |
+|  2  |     |   - |  p.C | p.E | p.H | p.Y |
+|  3  |     |     |   -  | p.F | p.I | p.X |
+|  4  |     |     |      |   - | p.J | p.W |
+|  5  |     |     |      |     |  -  | p.V |
+|  6  |     |     |      |     |     |  -  |
