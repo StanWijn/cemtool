@@ -1,0 +1,70 @@
+---
+title: "Probability sheet"
+author: "Stan Wijn MSc"
+date: "9/25/2019"
+output: html_document
+---
+
+"cemtool" Probability sheet:
+
+from in the first column, to in the first row
+
+#### 3 health states
+
+```{r table1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|     |  1  |  2  |  3   |  
+|-|-|-|-|
+|  1  |     | p.A |  p.Z |  
+|  2  |     |     |  p.Y |  
+|  3  |     |     |      |  
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+#### 4 health states
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   |  
+|-|-|-|-|-|
+|  1  |     | p.A |  p.B | p.Z |  
+|  2  |     |     |  p.C | p.Y |  
+|  3  |     |     |      | p.X |  
+|  4  |     |     |      |     |  
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+#### 5 health states
+```{r table3, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   | 5   | 
+|-----|-----|-----|-----|-----|-----|
+|  1  |    | p.A |  p.B | p.D | p.Z | 
+|  2  |     |     |  p.C | p.E | p.Y | 
+|  3  |     |     |     | p.F | p.X | 
+|  4  |     |     |      |     | p.W | 
+|  5  |     |     |      |     |     |   
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+#### 6 health states
+```{r table4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   | 5   | 6   |
+|-----|-----|-----|-----|-----|-----|-----|
+|  1  |    | p.A |  p.B | p.D | p.G | p.Z |
+|  2  |     |    |  p.C | p.E | p.H | p.Y |
+|  3  |     |     |     | p.F | p.I | p.X |
+|  4  |     |     |      |   | p.J | p.W |
+|  5  |     |     |      |     |    | p.V |
+|  6  |     |     |      |     |     |    |   
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+```
+
+
+
+
