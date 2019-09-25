@@ -64,7 +64,3 @@ tabl <- "
 "
 cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
 ```
-
-
-
-
