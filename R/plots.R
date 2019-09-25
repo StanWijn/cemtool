@@ -47,13 +47,13 @@ first <- function(HS){
   } else if(HS==6){
     c("1", "2", "3", "4", "5", "6")
   }
-  plotmat(A = AA, pos = if(HS>4){c(1,HS-3,2)} else {c(1,HS-2,1)}
-          , name = name, box.type =  "diamond", curve = if(HS==3){0.2} else {0.1},
-          lwd = 0.9, cex.txt = 1.2, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
-          arr.pos = 0.67, shadow.size = 0,
+  plotmat(A = AA, pos = if(HS==6){NULL} else if (HS==5){c(1,HS-3,2)} else if(HS==4) {c(1,2,1)} else if(HS==3){c(1,2)}
+          , name = name, box.type =  "square", curve = if(HS==3){0.0} else if(HS==6){.0} else {0.0},
+          lwd = 0.9, cex.txt = 0.8, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
+          arr.pos = 0.4, shadow.size = 0, arr.length = 0.3, 
           arr.type = "curved",
           box.cex = 0.8,
-          main = "Markov model")
+          main = "Markov model structure")
   
 }
 
@@ -92,13 +92,14 @@ if(HS>5){
 
   #--
   name  <- v.n
-  plotmat(A = AA, pos = if(HS>4){c(1,HS-3,2)} else {c(1,HS-2,1)}
-                  , name = name, box.type =  "diamond", curve = if(HS==3){0.2} else {0.1},
-         lwd = 0.9, cex.txt = 1.2, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
-         arr.pos = 0.67, shadow.size = 0,
+
+  plotmat(A = AA, pos = if(HS==6){NULL} else if (HS==5){c(1,HS-3,2)} else if(HS==4) {c(1,2,1)} else if(HS==3){c(1,2)}
+          , name = name, box.type =  "square", curve = if(HS==3){0.0} else if(HS==6){.0} else {0.0},
+          lwd = 0.9, cex.txt = 0.8, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
+          arr.pos = 0.4, shadow.size = 0, arr.length = 0.3, 
           arr.type = "curved",
-         box.cex = 0.8,
-                    main = "Markov model")
+          box.cex = 0.8,
+          main = "Markov model structure")
 
 }
 

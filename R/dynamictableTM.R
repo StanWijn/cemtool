@@ -93,7 +93,8 @@ editmatrix <- function(m.P, m.P_treatment){
     output$hot <- renderRHandsontable({
       DFtrans <- values[["DFtrans"]]
       if (!is.null(DFtrans))
-        rhandsontable(DFtrans, useTypes = as.logical(F), stretchH = "all")
+        rhandsontable(DFtrans, useTypes = as.logical(F), stretchH = "all") %>% 
+        hot_context_menu(allowRowEdit = FALSE, allowColEdit = FALSE) 
     })
 
     # --- cost input
@@ -113,7 +114,8 @@ editmatrix <- function(m.P, m.P_treatment){
     output$cost <- renderRHandsontable({
       DFcost <- values[["DFcost"]]
       if (!is.null(DFcost))
-        rhandsontable(DFcost, useTypes = as.logical(F), stretchH = "all")
+        rhandsontable(DFcost, useTypes = as.logical(F), stretchH = "all") %>% 
+        hot_context_menu(allowRowEdit = FALSE, allowColEdit = FALSE) 
     })
 
   

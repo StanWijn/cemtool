@@ -53,13 +53,16 @@ editTable <- function(DF, HS, v.n, outdir=getwd(), outfilename="table"){
         fluidRow(
           column(5, align = "left",
      
-        helpText("Transition probabilities for both strategies.
-                 Please enter in the probability to move from one state to another. (exampe: p.A is the probability to move from the first healhstate to the second 
-                 healthstate. The probability to remain in a state will automatically be calculated. In this step it is not possible to include recovery probabilities
-                 for example to return from the second healthstate to the first healthstate (reverse of p.A). This is posisble in the next step: Transition probability matrix"),
+        helpText("Transition probabilities for both strategies."),
+        helpText("Please enter in the probability to move from one state to another (example: p.A is the probability to move from the first health state to the second 
+                 health state."),
+        helpText("The probability to remain in a state will automatically be calculated. In this step it is not possible to include recovery probabilities
+                 for example to return from the second health state to the first health state (reverse of p.A). This is possible in the next step: Transition probability matrix"),
+        helpText("You can use this probability sheet if you require a table of the probabilities: https://stanwijn.github.io/cemtool_image/probability-sheet.html"),
         rHandsontableOutput("hot"),
         br(),
-        helpText("Costs of the healthstates for both strategies"),
+        helpText("Costs of the health states for both strategies"),
+        helpText("c.treatment is the cost of the strategy/treatment"),
         rHandsontableOutput("cost"),
         br(),
         helpText("Effects (utilities) for both strategies (ranging from 1 to 0; perfect healthy to death)"),
@@ -117,7 +120,8 @@ editTable <- function(DF, HS, v.n, outdir=getwd(), outfilename="table"){
     output$hot <- renderRHandsontable({
       DFtrans <- values[["DFtrans"]]
       if (!is.null(DFtrans))
-        rhandsontable(DFtrans, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all")
+        rhandsontable(DFtrans, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all") %>% 
+        hot_context_menu(allowRowEdit = FALSE, allowColEdit = FALSE) 
     })
 
     # --- cost input
@@ -137,7 +141,8 @@ editTable <- function(DF, HS, v.n, outdir=getwd(), outfilename="table"){
     output$cost <- renderRHandsontable({
       DFcost <- values[["DFcost"]]
       if (!is.null(DFcost))
-        rhandsontable(DFcost, rowHeaderWidth = 150, useTypes = as.numeric(T), stretchH = "all")
+        rhandsontable(DFcost, rowHeaderWidth = 150, useTypes = as.numeric(T), stretchH = "all") %>% 
+        hot_context_menu(allowRowEdit = FALSE, allowColEdit = FALSE) 
     })
 
     # --- effect input
@@ -157,7 +162,8 @@ editTable <- function(DF, HS, v.n, outdir=getwd(), outfilename="table"){
     output$effect <- renderRHandsontable({
       DFutil <- values[["DFutil"]]
       if (!is.null(DFutil))
-        rhandsontable(DFutil, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all")
+        rhandsontable(DFutil, rowHeaderWidth = 150, useTypes = as.logical(F), stretchH = "all") %>% 
+        hot_context_menu(allowRowEdit = FALSE, allowColEdit = FALSE) 
     })
     
     # --- discount rates
