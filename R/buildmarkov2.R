@@ -47,7 +47,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' cemtool() # Start from stratch (clear the cemtool environment from the Global Environment)
+#' cemtool() # Start from stratch
 #' cemprob() # Start from the second phase (definding the parameters) 
 #' cemtpm()  # Start from the third phase (modify the transition probability matrix)
 #' cemrun()  # Run the model with the current m.M markov trace and m.P transition probability matrix
@@ -177,7 +177,9 @@ cemrun <-function(HS = cemtool.env$HS, HS1 = cemtool.env$HS1, HS2 = cemtool.env$
       "When you save the results, cemtool.env$table_output will show the result table. 
       cemtool.env$plot1 and cemtool.env$plot2 include the model structure and Markov trace.
       cemtool.env$m.M and cemtool.env$m.M_treatment show the Markov trace
-      cemtool.env$m.P and cemtool.env$m.P_treatment show the transition probability matrix", "\n")
+      cemtool.env$m.P and cemtool.env$m.P_treatment show the transition probability matrix", "\n",
+      "\n",
+      "If you want to compare multiple models, save each model seperatly and then compare the table_output")
      
   cat("--------------------------------------------", "\n")
  

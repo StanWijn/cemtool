@@ -42,13 +42,14 @@ basic <- function(){
       column(5, align = "left",
              
              #step 1:
-             helpText("It is only possible to build 3 to 6 healthstate models, these include a start and death state. 
-                 Press Save to visualize the model and save the input for further use", "\n"),
-             sliderInput("healthstates", label = h4("How many healthstates does the model have?"), min = 3, max = 6, value = 3),
+             helpText("You can build a Markov model with 3 to 6 health state models, these include a start and death/absorption state."),
+              helpText("For example: Healthy -> Sick -> Dead"),
+            helpText("Press Save to visualize the model and save the input for further use"),
+             sliderInput("healthstates", label = h4("How many health states does the model have?"), min = 3, max = 6, value = 3),
              br(),
              #step 2:
-             textInput("HS1", label = h5("What is the name for the start state?:"), value = ""),
-             textInput("HS2", label = h5("What is the name for health state 2?:"), value = ""),
+             textInput("HS1", label = h5("What is the name for the start state? (e.g. Healthy):"), value = ""),
+             textInput("HS2", label = h5("What is the name for health state 2?(e.g. Sick):"), value = ""),
              conditionalPanel(
                condition = "input.healthstates > 3",
                textInput("HS3", label = h5("What is the name for health state 3?:"), value = "")), 
@@ -58,7 +59,7 @@ basic <- function(){
              conditionalPanel(
                condition = "input.healthstates > 5",
                textInput("HS5", label = h5("What is the name for health state 5?:"), value = "")),      
-             textInput("dead", label = h5("What is the name for the absorption state?:"), value = ""),
+             textInput("dead", label = h5("What is the name for the death/absorption state?(e.g. Dead):"), value = ""),
              br()),
       column(7, 
              plotOutput("plotmodel")
@@ -68,9 +69,9 @@ basic <- function(){
     
     fluidRow(column(6,    
                     #step 3: other variables
-                    sliderInput("cycles", label = h5("How many cycles do you want in years?:"), min = 2, max = 100, value = 10),
+                    sliderInput("cycles", label = h5("How many years do you want the model to run? (cycles):"), min = 2, max = 100, value = 10),
                     br(),
-                    helpText("We only support the comparison of two strategies: usual care vs an intervention"),
+                    helpText("You can compare two strategies: usual care vs an intervention (e.g. surgery vs physiotherapy)"),
                     textInput("usualcare", label = h5("What is the name of your usual care strategy?: "), value = ""),
                     textInput("intervention", label = h5("What is the name of your intervention strategy?: "), value = ""),
                     br())),

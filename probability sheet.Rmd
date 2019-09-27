@@ -1,0 +1,139 @@
+---
+title: "Probability sheet"
+author: "Stan Wijn MSc"
+date: "9/25/2019"
+
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: united
+    highlight: tango
+
+
+---
+
+
+
+## "cemtool" Probability sheet {.tabset}
+
+from in the first column, to in the first row
+
+```{r figurecal, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+require(diagram)
+
+first <- function(HS){
+  DiffMat  <- matrix(data = 0, nrow = HS, ncol = HS)
+  AA <- as.data.frame(DiffMat)
+  
+  AA[[2,1]] <- "p.A"
+  AA[[HS,1]] <- "p.Z"
+  AA[[HS,2]] <- "p.Y"
+  
+  
+  if(HS>3){
+    AA[[3,1]] <- "p.B"
+    AA[[3,2]] <- "p.C"
+    AA[[HS,3]] <- "p.X"
+  }
+  if(HS>4){
+    AA[[4,1]] <- "p.D"
+    AA[[4,2]] <- "p.E"
+    AA[[4,3]] <- "p.F"
+    AA[[HS,4]] <- "p.W"
+    
+  }
+  if(HS>5){
+    AA[[5,1]] <- "p.G"
+    AA[[5,2]] <- "p.H"
+    AA[[5,3]] <- "p.I"
+    AA[[5,4]] <- "p.J"
+    AA[[HS,5]] <- "p.V"
+  }
+  
+  
+  
+  
+  #--
+  name  <-  if(HS==3){
+    c("1", "2", "3")
+  } else if(HS==4){
+   c("1", "2", "3", "4")
+  } else if(HS==5){
+    c("1", "2", "3", "4", "5")
+  } else if(HS==6){
+    c("1", "2", "3", "4", "5", "6")
+  }
+  plotmat(A = AA, pos = if(HS==6){NULL} else if (HS==5){c(1,HS-3,2)} else if(HS==4) {c(1,2,1)} else if(HS==3){c(1,2)}
+          , name = name, box.type =  "square", curve = if(HS==3){0.0} else if(HS==6){.0} else {0.0},
+          lwd = 0.9, cex.txt = 0.8, box.prop = 0.5, box.size = 0.08, self.shiftx = 2,box.lwd = 1,
+          arr.pos = 0.4, shadow.size = 0, arr.length = 0.3, 
+          arr.type = "curved",
+          box.cex = 0.8,
+          main = "Markov model structure")
+  
+}
+```
+
+
+### 3 health states
+
+```{r table1, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|     |  1  |  2  |  3   |  
+|-|-|-|-|
+|  1  |     | p.A |  p.Z |  
+|  2  |     |     |  p.Y |  
+|  3  |     |     |      |  
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+first(HS=3)
+```
+
+### 4 health states
+
+```{r table2, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   |  
+|-|-|-|-|-|
+|  1  |     | p.A |  p.B | p.Z |  
+|  2  |     |     |  p.C | p.Y |  
+|  3  |     |     |      | p.X |  
+|  4  |     |     |      |     |  
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+first(HS=4)
+```
+
+### 5 health states
+
+```{r table3, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   | 5   | 
+|-----|-----|-----|-----|-----|-----|
+|  1  |    | p.A |  p.B | p.D | p.Z | 
+|  2  |     |     |  p.C | p.E | p.Y | 
+|  3  |     |     |     | p.F | p.X | 
+|  4  |     |     |      |     | p.W | 
+|  5  |     |     |      |     |     |   
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+first(HS=5)
+```
+
+### 6 health states
+
+```{r table4, echo=FALSE, message=FALSE, warnings=FALSE, results='asis'}
+tabl <- "
+|  |  1  |  2  |  3   | 4   | 5   | 6   |
+|-----|-----|-----|-----|-----|-----|-----|
+|  1  |    | p.A |  p.B | p.D | p.G | p.Z |
+|  2  |     |    |  p.C | p.E | p.H | p.Y |
+|  3  |     |     |     | p.F | p.I | p.X |
+|  4  |     |     |      |   | p.J | p.W |
+|  5  |     |     |      |     |    | p.V |
+|  6  |     |     |      |     |     |    |   
+"
+cat(tabl) # output the table in a format good for HTML/PDF/docx conversion
+first(HS=6)
+```

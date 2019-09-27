@@ -1,5 +1,7 @@
 
 readkey <- function(){
-  cat("      Press [enter] to continue \n")
-  line <- readline()
+  
+  readline(prompt = "
+           Press [enter] to continue
+           ")
   }
