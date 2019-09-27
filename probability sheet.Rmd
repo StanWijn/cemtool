@@ -2,6 +2,7 @@
 title: "Probability sheet"
 author: "Stan Wijn MSc"
 date: "9/25/2019"
+
 output: 
   html_document:
     toc: true
